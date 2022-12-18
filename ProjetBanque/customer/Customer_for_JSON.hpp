@@ -49,3 +49,9 @@ ptree write_an_operation(ptree& pt_write, Operation op, Compte account);
 ptree write_an_account(ptree& pt_write, Compte compte, Customer customers);
 
 ptree write_a_customer(ptree& pt_write, Customer customers);
+
+bool verif_operation_exists(ptree& pt_write, int nombre);
+
+bool verif_account_exists(ptree& pt_write, int nombre);
+
+bool verif_customer_exists(ptree& pt_write, int nombre);

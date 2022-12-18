@@ -111,6 +111,67 @@ Customer get_a_customer_from_a_ptree(ptree& pt) {
     return customer;
 }
 
+
+bool verif_operation_exists(ptree& pt_write, int nombre) {
+
+    Operation retour;
+    try {
+
+        for (ptree::value_type& operation : pt_write.get_child("Customers").get_child("Comptes").get_child("Operations")) {
+            auto custom = get_an_operation_from_a_ptree(operation.second);
+
+            if (custom.nombre_ == nombre) { retour = custom; }
+        }
+
+    }
+
+    catch (std::exception& e) {
+        // Other errors
+        return 0;
+    }
+    return 1;
+}
+
+
+bool verif_account_exists(ptree& pt_write, int nombre) {
+
+    Compte retour;
+    try {
+
+        for (ptree::value_type& Compte : pt_write.get_child("Customers").get_child("Comptes")) {
+            auto custom2 = get_an_account_from_a_ptree(Compte.second);
+            if (custom2.nombre_ == nombre) { retour = custom2; }
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+        return 0;
+    }
+    return 1;
+}
+
+bool verif_customer_exists(ptree& pt_write, int nombre) {
+
+    Customer retour;
+    try {
+
+        for (ptree::value_type& customer : pt_write.get_child("Customers")) {
+            auto custom3 = get_a_customer_from_a_ptree(customer.second);
+            std::cout << custom3 << std::endl;
+            if (custom3.nombre_ == nombre) { retour = custom3; }
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+        return 0;
+    }
+    return 1;
+
+}
+
+
 Operation get_an_operation(ptree& pt_write, int nombre) {
 
     Operation retour;
