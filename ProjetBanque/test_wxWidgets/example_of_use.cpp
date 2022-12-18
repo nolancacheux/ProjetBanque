@@ -29,6 +29,7 @@ MyFrame::MyFrame()
     menuFile->AppendSeparator();
 
 
+
    /* menuFile->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
         "Add an Account");
     menuFile->AppendSeparator();
