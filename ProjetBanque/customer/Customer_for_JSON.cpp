@@ -74,6 +74,7 @@ ptree get_a_ptree_from_a_customer(const Customer& customer) {
     ptree numero_de_comptes;
 
     pt.put("Nombre", customer.nombre_);
+    pt.put("Banque", customer.banque_);
     pt.put("Nom", customer.nom_);
     pt.put("Prenom", customer.prenom_);
     pt.put("Adresse", customer.adresse_);
@@ -94,7 +95,7 @@ ptree get_a_ptree_from_a_customer(const Customer& customer) {
 Customer get_a_customer_from_a_ptree(ptree& pt) {
 
     int nombre = pt.get<int>("Nombre", 0);
-
+    int banque = pt.get<int>("Banque", 0);
     std::string nom = pt.get<std::string>("Nom");
     std::string prenom = pt.get<std::string>("Prenom");
     std::string adresse = pt.get<std::string>("Adresse");
@@ -107,7 +108,7 @@ Customer get_a_customer_from_a_ptree(ptree& pt) {
         comptes.push_back(compte.second.get_value<int>());
     }
 
-    Customer customer(nombre, std::move(nom), std::move(prenom), std::move(adresse), std::move(mail), std::move(telephone), std::move(mot_de_passe), std::move(comptes));
+    Customer customer(nombre,banque, std::move(nom), std::move(prenom), std::move(adresse), std::move(mail), std::move(telephone), std::move(mot_de_passe), std::move(comptes));
     return customer;
 }
 
@@ -120,16 +121,15 @@ bool verif_operation_exists(ptree& pt_write, int nombre) {
         for (ptree::value_type& operation : pt_write.get_child("Customers").get_child("Comptes").get_child("Operations")) {
             auto custom = get_an_operation_from_a_ptree(operation.second);
 
-            if (custom.nombre_ == nombre) { retour = custom; }
+            if (custom.nombre_ == nombre) { retour = custom; return 1; }
         }
 
     }
 
     catch (std::exception& e) {
         // Other errors
-        return 0;
     }
-    return 1;
+    return 0;
 }
 
 
@@ -140,15 +140,14 @@ bool verif_account_exists(ptree& pt_write, int nombre) {
 
         for (ptree::value_type& Compte : pt_write.get_child("Customers").get_child("Comptes")) {
             auto custom2 = get_an_account_from_a_ptree(Compte.second);
-            if (custom2.nombre_ == nombre) { retour = custom2; }
+            if (custom2.nombre_ == nombre) { retour = custom2; return 1; }
         }
 
     }
     catch (std::exception& e) {
         // Other errors
-        return 0;
     }
-    return 1;
+    return 0;
 }
 
 bool verif_customer_exists(ptree& pt_write, int nombre) {
@@ -159,15 +158,15 @@ bool verif_customer_exists(ptree& pt_write, int nombre) {
         for (ptree::value_type& customer : pt_write.get_child("Customers")) {
             auto custom3 = get_a_customer_from_a_ptree(customer.second);
             std::cout << custom3 << std::endl;
-            if (custom3.nombre_ == nombre) { retour = custom3; }
+            if (custom3.nombre_ == nombre) { retour = custom3; return 1; }
         }
 
     }
     catch (std::exception& e) {
         // Other errors
-        return 0;
+      
     }
-    return 1;
+    return 0;
 
 }
 

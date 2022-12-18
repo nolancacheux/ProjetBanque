@@ -81,10 +81,10 @@ int main(int argc, char** argv) {
             std::cout << custom << std::endl;
         }*/
 
-        Customer customer1(100222221, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
+        Customer customer1(100222221,1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
             { Compte1.nombre_ });
 
-        Customer customer2(100222222, "Hoste", "Matthieu", "1 rue de la liberte Paris", "matthieu.hoste@student.junia.com", "06 23 67 82 00", "0987654321",
+        Customer customer2(100222222,1, "Hoste", "Matthieu", "1 rue de la liberte Paris", "matthieu.hoste@student.junia.com", "06 23 67 82 00", "0987654321",
             { Compte2.nombre_ });
 
         pt_accounts.push_back({ std::to_string(customer1.nombre_), get_a_ptree_from_a_customer(customer1) });
@@ -93,11 +93,11 @@ int main(int argc, char** argv) {
         pt_write.add_child("Customers", pt_accounts);
 
 
-        std::ofstream file_out("example_write_read.json");
+        std::ofstream file_out("data.json");
         write_json(file_out, pt_write);
         file_out.close();
 
-        std::ifstream file_in("example_write_read.json");
+        std::ifstream file_in("data.json");
         read_json(file_in, pt_write);
         file_in.close();
 
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 
         Operation operation3(99999, "20AAA19-01-01", "1000", "AAAAAAA", "1234AAAAAA56789", "1234567AAA89", "mami vAAAAAirement");
 
-        Customer customer3(8888888, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
+        Customer customer3(8888888,1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
             { 0 });
 
         Compte compte3(333333, "1000", "Courant", { 0 });
@@ -123,11 +123,11 @@ int main(int argc, char** argv) {
 
 
 
-        std::ofstream file_out2("example_write_read.json");
+        std::ofstream file_out2("data.json");
         write_json(file_out2, pt_write);
         file_out2.close();
 
-        std::ifstream file_in2("example_write_read.json");
+        std::ifstream file_in2("data.json");
         read_json(file_in2, pt_write);
         file_in2.close();
 

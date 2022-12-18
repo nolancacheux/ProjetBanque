@@ -23,8 +23,9 @@ using boost::property_tree::write_json;
 
 struct Customer {
     Customer();
-    Customer(const int& nombre, std::string&& nom, std::string&& prenom, std::string&& adresse, std::string&& mail, std::string&& telephone, std::string&& mot_de_passe, std::vector<int>&& comptes);
+    Customer(const int& nombre, const int& banque, std::string&& nom, std::string&& prenom, std::string&& adresse, std::string&& mail, std::string&& telephone, std::string&& mot_de_passe, std::vector<int>&& comptes);
     int nombre_ = 0;
+    int banque_ = 0;
     std::string nom_;
     std::string prenom_;
     std::string adresse_;

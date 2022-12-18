@@ -2,7 +2,8 @@
 
 Customer::Customer() {}
 
-Customer::Customer(const int& nombre,
+Customer::Customer(const int& nombre, 
+    const int& banque,
     std::string&& nom,
     std::string&& prenom,
     std::string&& adresse,
@@ -14,6 +15,7 @@ Customer::Customer(const int& nombre,
     :
 
     nombre_(nombre),
+    banque_(banque),
     nom_(nom),
     prenom_(prenom),
     adresse_(adresse),
@@ -24,6 +26,7 @@ Customer::Customer(const int& nombre,
 
 std::ostream& operator<<(std::ostream& os, const Customer& customer) {
     os << "Nombre " << customer.nombre_ << std::endl;
+    os << "Banque " << customer.banque_ << std::endl;
     os << "Nom " << customer.nom_ << std::endl;
     os << "Prenom " << customer.prenom_ << std::endl;
     os << "Adresse " << customer.adresse_ << std::endl;

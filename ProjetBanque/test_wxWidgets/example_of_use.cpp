@@ -12,12 +12,68 @@ wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
-    MyFrame* frame = new MyFrame();
+    MyFrame0* frame0 = new MyFrame0();
     // SetTopWindow(frame);
-    frame->Show(true);
+    frame0->Show(true);
     return true;
 }
+MyFrame0::MyFrame0()
+    : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
+{
 
+    SetBackgroundColour(wxColour(51, 65, 94));
+    wxMenu* menuFile = new wxMenu;
+    menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
+        "Add a customer");
+    menuFile->AppendSeparator();
+
+
+
+    /* menuFile->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
+         "Add an Account");
+     menuFile->AppendSeparator();
+
+     menuFile->Append(static_cast<int>(My_class_operation::ID_Add_Operation), "&Add_Operation...\tCtrl-A",
+         "Add an Operation");
+     menuFile->AppendSeparator();*/
+     /*
+     menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
+         "Save customers");
+     menuFile->AppendSeparator();*/
+    menuFile->Append(wxID_EXIT);
+
+    wxMenu* menuHelp = new wxMenu;
+    menuHelp->Append(wxID_ABOUT);
+
+    wxMenuBar* menuBar = new wxMenuBar;
+    menuBar->Append(menuFile, "&Customers Management");
+    menuBar->Append(menuHelp, "&Help");
+
+    SetMenuBar(menuBar);
+
+    CreateStatusBar();
+    SetStatusText("Welcome to Bank agency!");
+
+    /* Bind(wxEVT_MENU, &MyFrame::OnAdd_Account, this, static_cast<int>(My_class_compte::ID_Add_Account));
+
+     Bind(wxEVT_MENU, &MyFrame::OnAdd_Operation, this, static_cast<int>(My_class_operation::ID_Add_Operation));*/
+
+    Bind(wxEVT_MENU, &MyFrame0::OnAbout, this, wxID_ABOUT);/*
+    Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
+    Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
+
+    wxPanel* panel = new wxPanel(this);
+    wxButton* button = new wxButton(panel, 5, "Banque 1", wxPoint(340, 100), wxSize(100, 35));
+    button->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
+
+    // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
+
+
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue, choisissez votre banque !", wxPoint(300, 10));
+
+    text->SetForegroundColour(wxColour(255, 255, 255));
+
+}
 MyFrame::MyFrame()
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
@@ -83,17 +139,37 @@ MyFrame::MyFrame()
 
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(380, 50), wxSize(120, -1));
 }
-
+int client = 0;
 void MyFrame::OnConnexion(wxCommandEvent& event) {
     connexion = true;
     if (connexion == true) {
 
         numero.Append(account_numbers->GetValue());
        // wxMessageBox(numero);
+
+        ptree pt_write;
+        std::ifstream file_in("data.json");
+        read_json(file_in, pt_write);
+        file_in.close();
+
         int nbr = atoi(numero);
-        MyFrame2* frame2 = new MyFrame2(nbr);
-        frame2->Show(true);
-        Close(true);
+
+        if (verif_customer_exists(pt_write, nbr)==1) {
+            client = nbr;
+            MyFrame2* frame2 = new MyFrame2(nbr);
+            frame2->Show(true);
+            Close(true);
+        }
+        else {
+            
+
+            wxMessageBox("Ce numéro n'existe pas dans nos données");
+            numero = " ";
+
+            //auto Lombre_compte = std::to_string(nbr);
+            //wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));
+        }
+
     }
 }
 
@@ -143,7 +219,7 @@ MyFrame2::MyFrame2(int nbr)
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in("data.json");
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -192,19 +268,56 @@ MyFrame2::MyFrame2(int nbr)
 
     Bind(wxEVT_BUTTON, &MyFrame2::OnConnexion2, this, 10);
 
+
+    wxButton* retour = new wxButton(panel, 5, "Retour", wxPoint(540, 150), wxSize(100, 35));
+    retour->Bind(wxEVT_BUTTON, &MyFrame2::Retour, this);
+
 }
 
+void MyFrame2::Retour(wxCommandEvent& event) {
+    MyFrame* frame = new MyFrame();
+    // SetTopWindow(frame);
+    frame->Show(true);
+    Close(true);
+
+}
+
+int compte = 0;
 void MyFrame2::OnConnexion2(wxCommandEvent& event) {
     connexion2 = true;
     if (connexion2 == true) {
+
         numero.Append(account_numbers->GetValue());
-        //wxMessageBox(numero);
+        // wxMessageBox(numero);
+
+        ptree pt_write;
+        std::ifstream file_in("data.json");
+        read_json(file_in, pt_write);
+        file_in.close();
+
         int nbr = atoi(numero);
-        MyFrame3* frame3 = new MyFrame3(nbr);
-        frame3->Show(true);
-        Close(true);
+
+        if (verif_account_exists(pt_write, nbr) == 1) {
+            compte = nbr;
+            MyFrame3* frame3 = new MyFrame3(nbr);
+            frame3->Show(true);
+            Close(true);
+        }
+        else {
+
+
+            wxMessageBox("Ce numéro n'existe pas dans nos données");
+            numero = " ";
+
+           /* auto Lombre_compte = std::to_string(nbr);
+            wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));*/
+
+        }
+
     }
 }
+
+
 MyFrame3::MyFrame3(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
@@ -251,10 +364,12 @@ MyFrame3::MyFrame3(int nbr)
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in("data.json");
     read_json(file_in, pt_write);
     file_in.close();
-    Compte Valuecompte = get_an_account(pt_write, 1001111);
+
+
+    Compte Valuecompte = get_an_account(pt_write, nbr);
     //wxStaticText* numero = new wxStaticText(panel, -1, "Numero de compte : ", wxPoint(10, 20), wxSize(250, 20));
     //wxStaticText* numero_ = new wxStaticText(panel, -1, Valuecompte.nombre_, wxPoint(30, 40), wxSize(180, 20));
     wxStaticText* solde = new wxStaticText(panel, -1, "Solde : ", wxPoint(10, 70), wxSize(250, 20));
@@ -278,20 +393,52 @@ MyFrame3::MyFrame3(int nbr)
 
     Bind(wxEVT_BUTTON, &MyFrame3::OnConnexion3, this, 10);
 
+    
+    wxButton* retour = new wxButton(panel, 5, "Retour", wxPoint(540, 150), wxSize(100, 35));
+    retour->Bind(wxEVT_BUTTON, &MyFrame3::Retour, this);
+}
+
+void MyFrame3::Retour(wxCommandEvent& event) {
+    Close(true);
+    MyFrame2* frame2 = new MyFrame2(client);
+    // SetTopWindow(frame);
+    frame2->Show(true);
+   /* auto Lombre_compte = std::to_string(client);
+    wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));*/
 }
 
 void MyFrame3::OnConnexion3(wxCommandEvent& event) {
     connexion3 = true;
     if (connexion3 == true) {
+
         numero.Append(account_numbers->GetValue());
-        //wxMessageBox(numero);
+        // wxMessageBox(numero);
+
+        ptree pt_write;
+        std::ifstream file_in("data.json");
+        read_json(file_in, pt_write);
+        file_in.close();
+
         int nbr = atoi(numero);
-        MyFrame4* frame4 = new MyFrame4(nbr);
-        frame4->nombre = nbr;
-        frame4->Show(true);
-        Close(true);
+
+        if (verif_operation_exists(pt_write, nbr) == 1) {
+            MyFrame4* frame4 = new MyFrame4(nbr);
+            frame4->Show(true);
+            Close(true);
+        }
+        else {
+
+            wxMessageBox("Ce numéro n'existe pas dans nos données");
+            numero = " ";
+
+            /*auto Lombre_compte = std::to_string(nbr);
+            wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));*/
+        }
+
     }
 }
+
+
 MyFrame4::MyFrame4(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
@@ -299,13 +446,16 @@ MyFrame4::MyFrame4(int nbr)
     SetBackgroundColour(wxColour(51, 65, 94));
     wxPanel* panel = new wxPanel(this);
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in("data.json");
     read_json(file_in, pt_write);
     file_in.close();
     Operation Valueoperation = get_an_operation(pt_write, nbr);
     wxButton* button = new wxButton(panel, 10, "VIEW", wxPoint(340, 100), wxSize(100, 35));
     wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Informations de votre compte:", wxPoint(300, 10));
 
+
+    wxButton* retour = new wxButton(panel, 5, "Retour", wxPoint(540, 150), wxSize(100, 35));
+    retour->Bind(wxEVT_BUTTON, &MyFrame4::Retour, this);
 
     text->SetForegroundColour(wxColour(255, 255, 255));
 
@@ -338,6 +488,16 @@ MyFrame4::MyFrame4(int nbr)
     motif_->SetForegroundColour(wxColour(255, 255, 255));
 
 }
+
+void MyFrame4::Retour(wxCommandEvent & event) {
+    Close(true);
+    MyFrame3* frame3 = new MyFrame3(compte);
+    // SetTopWindow(frame);
+    frame3->Show(true);
+    /*auto Lombre_compte = std::to_string(compte);
+    wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));*/
+}
+
 
 void MyFrame::OnExit(wxCommandEvent& event)
 {
@@ -372,7 +532,7 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         std::string phone = std::string(customer_phone);
         std::string password = std::string(customer_password);
 
-        srand(NULL);
+        srand(time(NULL));
         auto client_numbers = rand(); // Only one at this time
         auto Lombre_compte = std::to_string(client_numbers);
         wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));
@@ -387,26 +547,30 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("example_write_read.json");
+            std::ifstream file_in("data.json");
             read_json(file_in, pt_write);
             file_in.close();
 
             pt_write = write_a_customer(pt_write, customer);
 
-            std::ofstream file_out2("example_write_read.json");
+            std::ofstream file_out2("data.json");
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("example_write_read.json");
+            std::ifstream file_in2("data.json");
             read_json(file_in2, pt_write);
             file_in2.close();
+
+            MyFrame* frame = new MyFrame();
+            // SetTopWindow(frame);
+            frame->Show(true);
+            Close(true);
         }
         catch (std::exception& e)
         {
             // Other errors
             std::cout << "Error :" << e.what() << std::endl;
         }
-        Refresh();
     }
     
 }
@@ -426,7 +590,7 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
         std::string typeCompte = std::string(compte_typecompte);
         //long account_numbers; // Only one at this time
 
-        srand(NULL);
+        srand(time(NULL));
         auto account_numbers = rand(); // Only one at this time
         auto Lombre_compte = std::to_string(account_numbers);
         wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));
@@ -440,7 +604,7 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("example_write_read.json");
+            std::ifstream file_in("data.json");
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -448,20 +612,27 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
 
             pt_write = write_an_account(pt_write, account, custom);
 
-            std::ofstream file_out2("example_write_read.json");
+            std::ofstream file_out2("data.json");
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("example_write_read.json");
+            std::ifstream file_in2("data.json");
             read_json(file_in2, pt_write);
             file_in2.close();
+
+      
+
+            MyFrame2* frame2 = new MyFrame2(this->nombre);
+            // SetTopWindow(frame);
+            frame2->Show(true);
+            Close(true);
+            
         }
         catch (std::exception& e)
         {
             // Other errors
             std::cout << "Error :" << e.what() << std::endl;
         }
-        Refresh();
     }
 }
 
@@ -504,7 +675,7 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("example_write_read.json");
+            std::ifstream file_in("data.json");
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -512,19 +683,24 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
 
             pt_write = write_an_operation(pt_write, operation, account);
 
-            std::ofstream file_out2("example_write_read.json");
+            std::ofstream file_out2("data.json");
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("example_write_read.json");
+            std::ifstream file_in2("data.json");
             read_json(file_in2, pt_write);
             file_in2.close();
+
+            MyFrame3* frame3 = new MyFrame3(this->nombre);
+            // SetTopWindow(frame);
+            frame3->Show(true);
+            Close(true);
+
         }
         catch (std::exception& e)
         {
             // Other errors
             std::cout << "Error :" << e.what() << std::endl;
         }
-        Refresh();
     }
 }

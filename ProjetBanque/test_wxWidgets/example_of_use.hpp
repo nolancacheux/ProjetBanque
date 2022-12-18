@@ -46,6 +46,27 @@ public:
     virtual bool OnInit();
 };
 
+class MyFrame0 : public wxFrame
+{
+public:
+    MyFrame0();
+    wxString numero = " ";
+    int nombre = 0;
+    bool connexion = false;
+    wxTextCtrl* account_numbers;
+
+private:
+
+    void OnExit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent& event);
+
+
+    void OnConnexion(wxCommandEvent& event);
+
+
+};
+
+
 class MyFrame : public wxFrame
 {
 public:
@@ -90,6 +111,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion2(wxCommandEvent& event);
+    void Retour(wxCommandEvent& event);
 
 
 };
@@ -112,6 +134,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion3(wxCommandEvent& event);
+    void Retour(wxCommandEvent& event);
 
 
 };
@@ -133,7 +156,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion4(wxCommandEvent& event);
-
+    void Retour(wxCommandEvent& event);
 
 };
 
