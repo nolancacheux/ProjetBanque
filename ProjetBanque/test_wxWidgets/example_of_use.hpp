@@ -14,32 +14,6 @@
 #include "My_new_Customer_dialog.hpp"
 #include "Customer_for_JSON.hpp"
 
-class MyFrame_Add_Customer : public wxFrame
-{
-public:
-    MyFrame_Add_Customer();
-
-private:
-};
-
-
-class MyFrame_Add_Account : public wxFrame
-{
-public:
-    MyFrame_Add_Account();
-
-private:
-};
-
-
-class MyFrame_Add_Operation : public wxFrame
-{
-public:
-    MyFrame_Add_Operation();
-
-private:
-};
-
 class MyApp : public wxApp
 {
 public:
@@ -50,18 +24,13 @@ class MyFrame0 : public wxFrame
 {
 public:
     MyFrame0();
-    wxString numero = " ";
-    int nombre = 0;
-    bool connexion = false;
-    wxTextCtrl* account_numbers;
 
 private:
 
-    void OnExit(wxCommandEvent& event);
-    void OnAbout(wxCommandEvent& event);
-
-
-    void OnConnexion(wxCommandEvent& event);
+    void OnChoix1(wxCommandEvent& event);
+    void OnChoix2(wxCommandEvent& event);
+    void OnChoix3(wxCommandEvent& event);
+    void OnChoix4(wxCommandEvent& event);
 
 
 };
@@ -70,9 +39,10 @@ private:
 class MyFrame : public wxFrame
 {
 public:
-    MyFrame();
+    MyFrame(int banque);
     wxString numero = " ";
     int nombre = 0;
+    int banque = 0;
     bool connexion = false;
     wxTextCtrl* account_numbers;
 
@@ -88,6 +58,7 @@ private:
 
 
     void OnConnexion(wxCommandEvent& event);
+    void Retour(wxCommandEvent& event);
 
 
 };

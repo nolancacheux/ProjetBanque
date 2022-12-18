@@ -54,4 +54,4 @@ bool verif_operation_exists(ptree& pt_write, int nombre);
 
 bool verif_account_exists(ptree& pt_write, int nombre);
 
-bool verif_customer_exists(ptree& pt_write, int nombre);
+bool verif_customer_exists(ptree& pt_write, int nombre, int banque);

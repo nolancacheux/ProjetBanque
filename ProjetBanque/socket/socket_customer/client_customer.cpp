@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         tcp::resolver resolver(io_service);
         boost::asio::connect(s, resolver.resolve({"127.0.0.1", "1234"}));
 
-        Customer customer(100222221, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
+        Customer customer(100222221,1,"Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
             {  });
 
         auto line = get_string_from_data(customer);

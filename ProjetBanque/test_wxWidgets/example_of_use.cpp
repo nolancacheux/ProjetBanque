@@ -58,13 +58,23 @@ MyFrame0::MyFrame0()
 
      Bind(wxEVT_MENU, &MyFrame::OnAdd_Operation, this, static_cast<int>(My_class_operation::ID_Add_Operation));*/
 
-    Bind(wxEVT_MENU, &MyFrame0::OnAbout, this, wxID_ABOUT);/*
+    //Bind(wxEVT_MENU, &MyFrame0::OnAbout, this, wxID_ABOUT);
+    /*
     Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* button = new wxButton(panel, 5, "Banque 1", wxPoint(340, 100), wxSize(100, 35));
-    button->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
+    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(140, 100), wxSize(100, 35));
+    bank1->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
+
+    wxButton* bank2 = new wxButton(panel, 5, "Banque 2", wxPoint(240, 100), wxSize(100, 35));
+    bank2->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix2, this);
+
+    wxButton* bank3 = new wxButton(panel, 5, "Banque 3", wxPoint(340, 100), wxSize(100, 35));
+    bank3->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix3, this);
+
+    wxButton* bank4 = new wxButton(panel, 5, "Banque 4", wxPoint(440, 100), wxSize(100, 35));
+    bank4->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix4, this);
 
     // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
 
@@ -74,9 +84,43 @@ MyFrame0::MyFrame0()
     text->SetForegroundColour(wxColour(255, 255, 255));
 
 }
-MyFrame::MyFrame()
+int banque = 0;
+
+void MyFrame0::OnChoix1(wxCommandEvent& event) {
+        // wxMessageBox(numero);
+    banque = 1;
+    MyFrame* frame = new MyFrame(banque);
+    frame->Show(true);
+    Close(true);
+}
+void MyFrame0::OnChoix2(wxCommandEvent& event) {
+    // wxMessageBox(numero);
+    banque = 2;
+    MyFrame* frame = new MyFrame(banque);
+    frame->Show(true);
+    Close(true);
+}
+void MyFrame0::OnChoix3(wxCommandEvent& event) {
+    // wxMessageBox(numero);
+    banque = 3;
+    MyFrame* frame = new MyFrame(banque);
+    frame->Show(true);
+    Close(true);
+}
+void MyFrame0::OnChoix4(wxCommandEvent& event) {
+    // wxMessageBox(numero);
+    banque = 4;
+    MyFrame* frame = new MyFrame(banque);
+    frame->Show(true);
+    Close(true);
+}
+
+
+
+MyFrame::MyFrame(int banque)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
+    this->banque = banque;
 
     SetBackgroundColour(wxColour(51, 65, 94));
     wxMenu* menuFile = new wxMenu;
@@ -131,14 +175,26 @@ MyFrame::MyFrame()
    // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
 
 
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue dans la BANQUE 1 !", wxPoint(300, 10));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue dans la BANQUE " + std::to_string(this->banque) + "  !!!!!", wxPoint(300, 10));
     wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Client Numbers : ", wxPoint(270, 55), wxSize(180, -1));
 
     text->SetForegroundColour(wxColour(255, 255, 255));
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(380, 50), wxSize(120, -1));
+    wxButton* retour = new wxButton(panel, 5, "Retour", wxPoint(540, 150), wxSize(100, 35));
+    retour->Bind(wxEVT_BUTTON, &MyFrame::Retour, this);
+
 }
+
+void MyFrame::Retour(wxCommandEvent& event) {
+    MyFrame0* frame = new MyFrame0();
+    // SetTopWindow(frame);
+    frame->Show(true);
+    Close(true);
+
+}
+
 int client = 0;
 void MyFrame::OnConnexion(wxCommandEvent& event) {
     connexion = true;
@@ -154,7 +210,7 @@ void MyFrame::OnConnexion(wxCommandEvent& event) {
 
         int nbr = atoi(numero);
 
-        if (verif_customer_exists(pt_write, nbr)==1) {
+        if (verif_customer_exists(pt_write, nbr,banque)==1) {
             client = nbr;
             MyFrame2* frame2 = new MyFrame2(nbr);
             frame2->Show(true);
@@ -275,7 +331,7 @@ MyFrame2::MyFrame2(int nbr)
 }
 
 void MyFrame2::Retour(wxCommandEvent& event) {
-    MyFrame* frame = new MyFrame();
+    MyFrame* frame = new MyFrame(banque);
     // SetTopWindow(frame);
     frame->Show(true);
     Close(true);
@@ -538,7 +594,7 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));
 
 
-        Customer customer(client_numbers, std::move(fisrtname), std::move(surnname), std::move(adress), std::move(mail), std::move(phone), std::move(password), {});
+        Customer customer(client_numbers, this->banque,std::move(fisrtname), std::move(surnname), std::move(adress), std::move(mail), std::move(phone), std::move(password), {});
         customers_.push_back(customer);
         delete new_customer;
 
@@ -561,7 +617,7 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
             read_json(file_in2, pt_write);
             file_in2.close();
 
-            MyFrame* frame = new MyFrame();
+            MyFrame* frame = new MyFrame(banque);
             // SetTopWindow(frame);
             frame->Show(true);
             Close(true);
