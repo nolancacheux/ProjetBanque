@@ -64,22 +64,51 @@ MyFrame0::MyFrame0()
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(140, 100), wxSize(100, 35));
+    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(130, 100), wxSize(200, 150));
     bank1->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
+    bank1->SetBackgroundColour(wxColour(60, 151, 105));
+    bank1->SetForegroundColour(*wxWHITE);
+    wxFont font1 = bank1->GetFont();
+    font1.SetPointSize(20);
+    font1.SetFaceName("Verdana");
+    bank1->SetFont(font1);
 
-    wxButton* bank2 = new wxButton(panel, 5, "Banque 2", wxPoint(240, 100), wxSize(100, 35));
+    wxButton* bank2 = new wxButton(panel, 6, "Banque 2", wxPoint(430, 100), wxSize(200, 150));
     bank2->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix2, this);
+    bank2->SetBackgroundColour(wxColour(89, 60, 151));
+    bank2->SetForegroundColour(*wxWHITE);
+    wxFont font2 = bank2->GetFont();
+    font2.SetPointSize(20);
+    font2.SetFaceName("Verdana");
+    bank2->SetFont(font2);
 
-    wxButton* bank3 = new wxButton(panel, 5, "Banque 3", wxPoint(340, 100), wxSize(100, 35));
+    wxButton* bank3 = new wxButton(panel, 7, "Banque 3", wxPoint(130, 300), wxSize(200, 150));
     bank3->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix3, this);
+    bank3->SetBackgroundColour(wxColour(172, 40, 40));
+    bank3->SetForegroundColour(*wxWHITE);
+    wxFont font3 = bank3->GetFont();
+    font3.SetPointSize(20);
+    font3.SetFaceName("Verdana");
+    bank3->SetFont(font3);
 
-    wxButton* bank4 = new wxButton(panel, 5, "Banque 4", wxPoint(440, 100), wxSize(100, 35));
+    wxButton* bank4 = new wxButton(panel, 8, "Banque 4", wxPoint(430, 300), wxSize(200, 150));
     bank4->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix4, this);
+    bank4->SetBackgroundColour(wxColour(122, 113, 89));
+    bank4->SetForegroundColour(*wxWHITE);
+    wxFont font4 = bank4->GetFont();
+    font4.SetPointSize(20);
+    font4.SetFaceName("Verdana");
+    bank4->SetFont(font4);
 
     // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
 
 
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue, choisissez votre banque !", wxPoint(300, 10));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue, choisissez votre banque !", wxPoint(130, 10));
+    // Changer la taille du texte
+    wxFont FontText = text->GetFont();
+    FontText.SetPointSize(20);
+    FontText.SetFaceName("Times New Roman");
+    text->SetFont(FontText);
 
     text->SetForegroundColour(wxColour(255, 255, 255));
 
@@ -121,8 +150,24 @@ MyFrame::MyFrame(int banque)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
     this->banque = banque;
-
-    SetBackgroundColour(wxColour(51, 65, 94));
+    switch (banque) {
+        case 1 : 
+            SetBackgroundColour(wxColour(60, 151, 105));
+            break;
+        case 2:
+            SetBackgroundColour(wxColour(89, 60, 151));
+            break;
+        case 3:
+            SetBackgroundColour(wxColour(172, 40, 40));
+            break;
+        case 4:
+            SetBackgroundColour(wxColour(122, 113, 89));
+            break;
+        default:
+            SetBackgroundColour(wxColour(51, 65, 94));
+            break;
+    }
+    
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
         "Add a customer");
