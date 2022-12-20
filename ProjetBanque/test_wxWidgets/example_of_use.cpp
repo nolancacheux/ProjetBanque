@@ -1,5 +1,6 @@
 #include "Customer_for_JSON.hpp"
 #include "example_of_use.hpp"
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -8,6 +9,69 @@ using namespace std;
 
 wxIMPLEMENT_APP(MyApp);
 
+
+
+#include <boost/asio.hpp>
+using namespace boost::asio;
+using ip::tcp;
+string ClientRequest(string request)
+{
+    boost::asio::io_service io_service;
+    // socket creation
+    tcp::socket socket(io_service);
+    // connection
+    try
+    {
+        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+    }
+    catch (...)
+    {
+        cout << "Pas de connexion vers serv central." << endl;
+        return "0";
+    }
+
+
+    // request/message from client
+
+    //string request = "100222222|getcusto|100222222";
+    //string request = "100222222|getcompte|1001111";
+    //string prout = "100222222|getope|1001";
+    //cout << DataDeserialize(prout);
+
+    //string prout = "8888888|getcusto|8888888";
+    //cout << DataDeserialize(prout);
+
+    request += "\n";
+    boost::system::error_code error;
+    boost::asio::write(socket, boost::asio::buffer(request), error);
+    if (!error)
+    {
+        cout << "Envoi d'une requete vers serv central" << endl;
+    }
+    else
+    {
+        cout << "send failed: " << error.message() << endl;
+        return "0";
+    }
+
+
+
+    // getting response from server
+    boost::asio::streambuf receive_buffer;
+    boost::asio::read(socket, receive_buffer, boost::asio::transfer_all(), error);
+
+    if (error && error != boost::asio::error::eof)
+    {
+        cout << "receive failed: " << error.message() << endl;
+        return "0";
+    }
+    else
+    {
+        const char* data = boost::asio::buffer_cast<const char*>(receive_buffer.data());
+        cout << data << endl;
+        return data;
+    }
+}
 
 
 bool MyApp::OnInit()
@@ -241,21 +305,26 @@ void MyFrame::Retour(wxCommandEvent& event) {
 }
 
 int client = 0;
+string bankjson;
 void MyFrame::OnConnexion(wxCommandEvent& event) {
     connexion = true;
     if (connexion == true) {
+
+
+        bankjson = ClientRequest("getbank|"+ to_string(banque));
+        //bankjson = "C:\\ProjetBank\\ProjetBanque-master\\out\\build\\x64-debug\\ProjetBanque\\test_wxWidgets\\data.json";
 
         numero.Append(account_numbers->GetValue());
        // wxMessageBox(numero);
 
         ptree pt_write;
-        std::ifstream file_in("data.json");
+        std::ifstream file_in(bankjson);
         read_json(file_in, pt_write);
         file_in.close();
 
         int nbr = atoi(numero);
 
-        if (verif_customer_exists(pt_write, nbr,banque)==1) {
+        if (verif_customer_exists(pt_write, nbr, banque)==1) {
             client = nbr;
             MyFrame2* frame2 = new MyFrame2(nbr);
             frame2->Show(true);
@@ -320,7 +389,7 @@ MyFrame2::MyFrame2(int nbr)
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -392,7 +461,7 @@ void MyFrame2::OnConnexion2(wxCommandEvent& event) {
         // wxMessageBox(numero);
 
         ptree pt_write;
-        std::ifstream file_in("data.json");
+        std::ifstream file_in(bankjson);
         read_json(file_in, pt_write);
         file_in.close();
 
@@ -465,7 +534,7 @@ MyFrame3::MyFrame3(int nbr)
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -508,6 +577,7 @@ void MyFrame3::Retour(wxCommandEvent& event) {
     wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));*/
 }
 
+
 void MyFrame3::OnConnexion3(wxCommandEvent& event) {
     connexion3 = true;
     if (connexion3 == true) {
@@ -516,7 +586,7 @@ void MyFrame3::OnConnexion3(wxCommandEvent& event) {
         // wxMessageBox(numero);
 
         ptree pt_write;
-        std::ifstream file_in("data.json");
+        std::ifstream file_in(bankjson);
         read_json(file_in, pt_write);
         file_in.close();
 
@@ -547,7 +617,7 @@ MyFrame4::MyFrame4(int nbr)
     SetBackgroundColour(wxColour(51, 65, 94));
     wxPanel* panel = new wxPanel(this);
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
     Operation Valueoperation = get_an_operation(pt_write, nbr);
@@ -648,17 +718,17 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
             pt_write = write_a_customer(pt_write, customer);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 
@@ -705,7 +775,7 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -713,11 +783,11 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
 
             pt_write = write_an_account(pt_write, account, custom);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 
@@ -776,7 +846,7 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -784,11 +854,11 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
 
             pt_write = write_an_operation(pt_write, operation, account);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 

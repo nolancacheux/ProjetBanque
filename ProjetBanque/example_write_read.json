@@ -1,0 +1,97 @@
+{
+    "Customers": {
+        "100222221": {
+            "Nombre": "100222221",
+            "Nom": "Montuori",
+            "Prenom": "Milo",
+            "Adresse": "1 rue de la liberte Paris",
+            "Mail": "milo.montuori@student.junia.com",
+            "Telephone": "06 23 67 82 00",
+            "Mot_de_passe": "1234567890",
+            "Comptes": [
+                "1001111"
+            ]
+        },
+        "100222222": {
+            "Nombre": "100222222",
+            "Nom": "Hoste",
+            "Prenom": "Matthieu",
+            "Adresse": "1 rue de la liberte Paris",
+            "Mail": "matthieu.hoste@student.junia.com",
+            "Telephone": "06 23 67 82 00",
+            "Mot_de_passe": "0987654321",
+            "Comptes": [
+                "1012111"
+            ]
+        },
+        "8888888": {
+            "Nombre": "8888888",
+            "Nom": "Montuori",
+            "Prenom": "Milo",
+            "Adresse": "1 rue de la liberte Paris",
+            "Mail": "milo.montuori@student.junia.com",
+            "Telephone": "06 23 67 82 00",
+            "Mot_de_passe": "1234567890",
+            "Comptes": [
+                "0",
+                "333333"
+            ]
+        },
+        "Comptes": {
+            "1001111": {
+                "Nombre": "1001111",
+                "Solde": "1000",
+                "TypeCompte": "Courant",
+                "Operations": [
+                    "1001"
+                ]
+            },
+            "1012111": {
+                "Nombre": "1012111",
+                "Solde": "1001",
+                "TypeCompte": "Courant",
+                "Operations": [
+                    "1002"
+                ]
+            },
+            "333333": {
+                "Nombre": "333333",
+                "Solde": "1000",
+                "TypeCompte": "Courant",
+                "Operations": [
+                    "0",
+                    "99999"
+                ]
+            },
+            "Operations": {
+                "1001": {
+                    "Nombre": "1001",
+                    "DateOperation": "2019-01-01",
+                    "Montant": "1000",
+                    "Type": "Versement",
+                    "Emetteur": "123456789",
+                    "Recepteur": "123456789",
+                    "Motif": "mami virement"
+                },
+                "1002": {
+                    "Nombre": "1002",
+                    "DateOperation": "2019-01-01",
+                    "Montant": "1000",
+                    "Type": "Versement",
+                    "Emetteur": "123456789",
+                    "Recepteur": "123456789",
+                    "Motif": "mami virement"
+                },
+                "99999": {
+                    "Nombre": "99999",
+                    "DateOperation": "20AAA19-01-01",
+                    "Montant": "1000",
+                    "Type": "AAAAAAA",
+                    "Emetteur": "1234AAAAAA56789",
+                    "Recepteur": "1234567AAA89",
+                    "Motif": "mami vAAAAAirement"
+                }
+            }
+        }
+    }
+}

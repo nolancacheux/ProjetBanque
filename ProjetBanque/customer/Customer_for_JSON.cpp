@@ -1,6 +1,5 @@
 #include "Customer_for_JSON.hpp"
 
-
 //Compte compte1 = get_a_ptree_from_a_account(const Compte & compte)
 
 ptree get_a_ptree_from_an_operation(const Operation& operation) {
@@ -186,7 +185,7 @@ Operation get_an_operation(ptree& pt_write, int nombre) {
 
     catch (std::exception& e) {
         // Other errors
-        std::cout << "Cette opération n'existe pas frérot" << std::endl;
+        std::cout << "Cette opï¿½ration n'existe pas frï¿½rot" << std::endl;
     }
     return retour;
 }
@@ -205,7 +204,7 @@ Compte get_an_account(ptree& pt_write, int nombre) {
     }
     catch (std::exception& e) {
         // Other errors
-        std::cout << "Ce compte n'existe pas frérot" << std::endl;
+        std::cout << "Ce compte n'existe pas frï¿½rot" << std::endl;
     }
     return retour;
 }
@@ -224,7 +223,7 @@ Customer get_a_customer(ptree& pt_write, int nombre) {
     }
     catch (std::exception& e) {
         // Other errors
-        std::cout << "Ce client n'existe pas frérot" << std::endl;
+        std::cout << "Ce client n'existe pas frï¿½rot" << std::endl;
     }
     return retour;
 
@@ -315,4 +314,22 @@ ptree write_a_customer(ptree& pt_write, Customer customers) {
         // Other errors
     }
     return pt_write;
+}
+
+std::vector <Operation> get_all_operations(ptree& pt_write){
+    std::vector<Operation> retour;
+    try {
+
+        for (ptree::value_type& operation : pt_write.get_child("Customers").get_child("Comptes").get_child("Operations")) {
+            auto custom2 = get_an_operation_from_a_ptree(operation.second);
+            retour.push_back(custom2);
+            //std::cout << custom2;
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+        std::cout << "pas d'ope" << std::endl;
+    }
+    return retour;
 }

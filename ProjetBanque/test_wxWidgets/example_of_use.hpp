@@ -13,6 +13,7 @@
 #include "Customer.hpp"
 #include "My_new_Customer_dialog.hpp"
 #include "Customer_for_JSON.hpp"
+#include "../socket/client.hpp"
 
 class MyApp : public wxApp
 {
