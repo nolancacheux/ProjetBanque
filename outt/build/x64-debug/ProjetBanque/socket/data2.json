@@ -1,0 +1,18 @@
+{
+    "Customers": {
+        "20582": {
+            "Nombre": "20582",
+            "Banque": "2",
+            "Nom": "uo",
+            "Prenom": "ou",
+            "Adresse": "i",
+            "Mail": "ui",
+            "Telephone": "ou",
+            "Mot_de_passe": "o",
+            "Comptes": ""
+        },
+        "Comptes": {
+            "Operations": ""
+        }
+    }
+}

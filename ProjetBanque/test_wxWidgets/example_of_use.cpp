@@ -74,6 +74,7 @@ string ClientRequest(string request)
 }
 
 
+string bankjson;
 bool MyApp::OnInit()
 {
     MyFrame0* frame0 = new MyFrame0();
@@ -231,7 +232,10 @@ MyFrame::MyFrame(int banque)
             SetBackgroundColour(wxColour(51, 65, 94));
             break;
     }
-    
+
+
+    bankjson = ClientRequest("getbank|" + to_string(banque));
+
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
         "Add a customer");
@@ -305,13 +309,10 @@ void MyFrame::Retour(wxCommandEvent& event) {
 }
 
 int client = 0;
-string bankjson;
 void MyFrame::OnConnexion(wxCommandEvent& event) {
     connexion = true;
     if (connexion == true) {
 
-
-        bankjson = ClientRequest("getbank|"+ to_string(banque));
         //bankjson = "C:\\ProjetBank\\ProjetBanque-master\\out\\build\\x64-debug\\ProjetBanque\\test_wxWidgets\\data.json";
 
         numero.Append(account_numbers->GetValue());

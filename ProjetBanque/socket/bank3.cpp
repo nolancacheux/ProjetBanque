@@ -174,7 +174,7 @@ int main(int argc, char** argv)
     boost::split(result, test, boost::is_any_of("\\"));
     for (int i = 0; i < result.size() - 1; i++)
         oui += result[i] + "\\";
-    oui += "data.json";
+    oui += "data3.json";
 
     cout << oui;
 

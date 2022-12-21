@@ -1,0 +1,26 @@
+{
+    "Customers": {
+        "18887": {
+            "Nombre": "18887",
+            "Banque": "4",
+            "Nom": "oui",
+            "Prenom": "oui",
+            "Adresse": "ou",
+            "Mail": "ou",
+            "Telephone": "iu",
+            "Mot_de_passe": "oi",
+            "Comptes": [
+                "18949"
+            ]
+        },
+        "Comptes": {
+            "18949": {
+                "Nombre": "18949",
+                "Solde": "28989",
+                "TypeCompte": "Courant",
+                "Operations": ""
+            },
+            "Operations": ""
+        }
+    }
+}
