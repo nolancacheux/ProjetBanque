@@ -1,0 +1,37 @@
+{
+    "Customers": {
+        "19383": {
+            "Nombre": "19383",
+            "Banque": "3",
+            "Nom": "o",
+            "Prenom": "iu",
+            "Adresse": "i",
+            "Mail": "ui",
+            "Telephone": "u",
+            "Mot_de_passe": "o",
+            "Comptes": [
+                "19455"
+            ]
+        },
+        "20667": {
+            "Nombre": "20667",
+            "Banque": "3",
+            "Nom": "ioh",
+            "Prenom": "o",
+            "Adresse": "hu",
+            "Mail": "h",
+            "Telephone": "ui",
+            "Mot_de_passe": "kjhk",
+            "Comptes": ""
+        },
+        "Comptes": {
+            "19455": {
+                "Nombre": "19455",
+                "Solde": "992",
+                "TypeCompte": "oui",
+                "Operations": ""
+            },
+            "Operations": ""
+        }
+    }
+}

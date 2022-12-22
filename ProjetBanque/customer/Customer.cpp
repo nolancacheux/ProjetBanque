@@ -93,7 +93,7 @@ std::ostream& operator<<(std::ostream& os, const Compte& Compte) {
     os << "Solde " << Compte.solde_ << std::endl;
     os << "TypeCompte " << Compte.typeCompte_ << std::endl;
     for (auto& operation : Compte.operations_) {
-        std::cout << "Opérations : " << operation << std::endl;
+        std::cout << "Opï¿½rations : " << operation << std::endl;
     }
     return os;
 }
@@ -118,8 +118,65 @@ std::ostream& operator<<(std::ostream& os, const Compte& Compte) {
     os << "Solde " << Compte.solde_ << std::endl;
     os << "TypeCompte " << Compte.typeCompte_ << std::endl;
     /*for (auto& operation : Compte.operations_) {
-        std::cout << "Opérations : " << operation << std::endl;
+        std::cout << "Opï¿½rations : " << operation << std::endl;
     }*/
     /*return os;
 }
 */
+std::string Compte::serialize(){
+    std::string data;
+    data += std::to_string(nombre_);
+    data += "|";
+    data += solde_;
+    data += "|";
+    data += typeCompte_;
+    data += "|";
+    for (auto& operation : operations_) {
+        data += std::to_string(operation);
+        data += "|";
+    }
+    return data;
+}
+
+std::string Operation::serialize(){
+    std::string data;
+    data += std::to_string(nombre_);
+    data += "|";
+    data += DateOperation_;
+    data += "|";
+    data += montant_;
+    data += "|";
+    data += type_;
+    data += "|";
+    data += emetteur_;
+    data += "|";
+    data += recepteur_;
+    data += "|";
+    data += motif_;
+    data += "|";
+    return data;
+}
+
+
+std::string Customer::serialize(){
+    std::string data;
+    data += std::to_string(nombre_);
+    data += "|";
+    data += nom_;
+    data += "|";
+    data += prenom_;
+    data += "|";
+    data += adresse_;
+    data += "|";
+    data += mail_;
+    data += "|";
+    data += telephone_;
+    data += "|";
+    data += mot_de_passe_;
+    data += "|";
+    for (auto& compte : comptes_) {
+        data += std::to_string(compte);
+        data += "|";
+    }
+    return data;   
+}

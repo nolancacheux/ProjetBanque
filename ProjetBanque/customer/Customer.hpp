@@ -34,11 +34,12 @@ struct Customer {
     std::string mot_de_passe_;
     std::vector<int> comptes_;
     friend std::ostream& operator<<(std::ostream& os, const Customer& customer);
-    template <class Archive>
-    void serialize(Archive& ar, unsigned int version)
-    {
-        ar& nombre_& nom_& prenom_& adresse_& mail_& telephone_& mot_de_passe_& comptes_;
-    }
+    // template <class Archive>
+    // void serialize(Archive& ar, unsigned int version)
+    // {
+    //     ar& nombre_& nom_& prenom_& adresse_& mail_& telephone_& mot_de_passe_& comptes_;
+    // }
+    std::string serialize();
 };
 
 
@@ -55,11 +56,12 @@ struct Operation {
     std::string motif_;
 
     friend std::ostream& operator<<(std::ostream& os, const Operation& Operation);
-    template <class Archive>
-    void serialize(Archive& ar, unsigned int version)
-    {
-        ar& DateOperation_& montant_& type_& emetteur_& recepteur_& motif_& nombre_;
-    }
+    // template <class Archive>
+    // void serialize(Archive& ar, unsigned int version)
+    // {
+    //     ar& DateOperation_& montant_& type_& emetteur_& recepteur_& motif_& nombre_;
+    // }
+    std::string serialize();
 };
 
 struct Compte {
@@ -72,11 +74,12 @@ struct Compte {
     std::vector<int> operations_;
 
     friend std::ostream& operator<<(std::ostream& os, const Compte& Compte);
-    template <class Archive>
-    void serialize(Archive& ar, unsigned int version)
-    {
-        ar& solde_& typeCompte_& operations_& nombre_;
-    }
+    // template <class Archive>
+    // void serialize(Archive& ar, unsigned int version)
+    // {
+    //     ar& solde_& typeCompte_& operations_& nombre_;
+    // }
+    std::string serialize();
 };
 
 
