@@ -48,9 +48,29 @@ public:
 private:
 
 	wxTextCtrl* edit_compte_solde;
-	wxTextCtrl* edit_compte_typecompte;
+	wxRadioButton* choice1;
+	wxRadioButton* choice2;
+	wxRadioButton* choice3;
 };
 
+class My_virement_dialog : public wxDialog
+{
+public:
+
+	My_virement_dialog(wxWindow* parent, wxWindowID id, const wxString& title);
+
+
+	wxString get_virement_emetteur();
+	wxString get_virement_recepteur();
+	wxString get_virement_montant();
+
+private:
+
+	wxTextCtrl* edit_compte_emetteur;
+	wxTextCtrl* edit_compte_recepteur;
+	wxTextCtrl* edit_compte_montant;
+
+};
 
 class My_new_Operation_dialog : public wxDialog
 {

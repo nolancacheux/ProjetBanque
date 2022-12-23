@@ -60,9 +60,14 @@ My_new_Compte_dialog::My_new_Compte_dialog(wxWindow* parent, wxWindowID id, cons
 	auto text_compte_solde = new wxStaticText(this, -1, "Solde : ", wxPoint(10, 20), wxSize(180, 20));
 	auto text_compte_typecompte = new wxStaticText(this, -1, "Account Type : ", wxPoint(10, 50), wxSize(180, 20));
 
+	// Crée les boutons de choix radio
+	choice1 = new wxRadioButton(this, wxID_ANY, "Courant", wxPoint(160, 50), wxSize(180, 20), wxRB_GROUP);
+	choice2 = new wxRadioButton(this, wxID_ANY, "Livret A", wxPoint(160, 80), wxSize(180, 20));
+	choice3 = new wxRadioButton(this, wxID_ANY, "PEA", wxPoint(160, 110), wxSize(180, 20));
+
 
 	edit_compte_solde = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));
-	edit_compte_typecompte = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
+
 
 
 	wxButton* b = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 180), wxDefaultSize);
@@ -71,13 +76,76 @@ My_new_Compte_dialog::My_new_Compte_dialog(wxWindow* parent, wxWindowID id, cons
 }
 
 wxString My_new_Compte_dialog::get_compte_solde() {
+	wxMessageBox(edit_compte_solde->GetValue());
 	return edit_compte_solde->GetValue();
 }
 
+
+
+
+
+
+
+
+
 wxString My_new_Compte_dialog::get_compte_typecompte() {
-	return edit_compte_typecompte->GetValue();
+
+	wxString retour = "ERROR";
+	if (choice1->GetValue()) {
+		std::string str = "Courant (Pas d'interet)";
+		wxString retour(str);
+		return retour;
+	}
+	else if (choice2->GetValue()) {
+		std::string str = "Livret A (Interet : 3%)";
+		wxString retour(str);
+		return retour;
+	}
+	else if (choice3->GetValue()) {
+		std::string str = "PEA (Interet : 15%)";
+		wxString retour(str);
+		return retour;
+	}
+	else {
+		std::string str = "Pas de type renseigne";
+		wxString retour(str);
+		return retour;
+	}
+	
 }
 
+My_virement_dialog::My_virement_dialog(wxWindow* parent, wxWindowID id, const wxString& title)
+
+	: wxDialog(parent, id, title)
+{
+
+	auto text_compte_emetteur = new wxStaticText(this, -1, "Emetteur : ", wxPoint(10, 20), wxSize(180, 20));
+	auto text_compte_recepteur = new wxStaticText(this, -1, "Recepteur : ", wxPoint(10, 50), wxSize(180, 20));
+	auto text_compte_montant = new wxStaticText(this, -1, "Montant : ", wxPoint(10, 80), wxSize(180, 20));
+	
+
+
+	edit_compte_emetteur = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));
+	edit_compte_recepteur = new wxTextCtrl(this, -1, "", wxPoint(160, 50), wxSize(100, 20));
+	edit_compte_montant = new wxTextCtrl(this, -1, "", wxPoint(160, 80), wxSize(100, 20));
+
+
+	wxButton* b = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 180), wxDefaultSize);
+	wxButton* c = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 180), wxDefaultSize);
+
+}
+
+wxString My_virement_dialog::get_virement_emetteur() {
+	return edit_compte_emetteur->GetValue();
+}
+
+wxString My_virement_dialog::get_virement_recepteur() {
+	return edit_compte_recepteur->GetValue();
+}
+
+wxString My_virement_dialog::get_virement_montant() {
+	return edit_compte_montant->GetValue();
+}
 
 My_new_Operation_dialog::My_new_Operation_dialog(wxWindow* parent, wxWindowID id, const wxString& title)
 

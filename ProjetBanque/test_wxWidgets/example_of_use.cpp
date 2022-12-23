@@ -316,6 +316,9 @@ MyFrame2::MyFrame2(int nbr)
     wxButton* button2 = new wxButton(panel, 5, "New Account", wxPoint(340, 150), wxSize(100, 35));
     button2->Bind(wxEVT_BUTTON, &MyFrame2::OnAdd_Account, this);
 
+    wxButton* button3 = new wxButton(panel, 5, "Virement", wxPoint(340, 200), wxSize(100, 35));
+    button3->Bind(wxEVT_BUTTON, &MyFrame2::OnVirement, this);
+
     text->SetForegroundColour(wxColour(255, 255, 255));
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
@@ -418,6 +421,91 @@ void MyFrame2::OnConnexion2(wxCommandEvent& event) {
     }
 }
 
+void MyFrame2::OnVirement(wxCommandEvent& event) {
+
+    auto new_account = new My_virement_dialog(this, wxID_ANY, "Test_Dialog");
+
+    if (new_account->ShowModal() == wxID_OK)
+    {
+        auto virement_emetteur = new_account->get_virement_emetteur();
+        auto virement_recepteur = new_account->get_virement_recepteur();
+        auto virement_montant = new_account->get_virement_montant();
+
+        std::string emetteur = std::string(virement_emetteur);
+        std::string recepteur = std::string(virement_recepteur);
+        std::string montant = std::string(virement_montant);
+        //long account_numbers; // Only one at this time
+
+        //srand(time(NULL));
+        //auto account_numbers = rand(); // Only one at this time
+        //auto Lombre_compte = std::to_string(account_numbers);
+        ////wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));
+
+        /*Compte account(account_numbers, std::move(solde), std::move(typeCompte), {});
+        accounts_.push_back(account);
+        delete new_account;*/
+
+        int compte_emetteur = std::stoi(emetteur);
+        int compte_recepteur = std::stoi(recepteur);
+        int compte_montant = std::stoi(montant);
+
+        ptree pt_write;
+        ptree pt_accounts;
+        try
+        {
+
+            std::ifstream file_in("data.json");
+            read_json(file_in, pt_write);
+            file_in.close();
+
+            if ((verif_account_exists(pt_write, compte_emetteur) == 1)&&(verif_account_exists(pt_write, compte_recepteur) == 1)) {
+
+               pt_write = edit_solde_of_an_account(pt_write, compte_emetteur, -compte_montant); // On soustrait à l'émetteur le montant d'où le signe - 
+               pt_write = edit_solde_of_an_account(pt_write, compte_recepteur, compte_montant); // On ajoute au recepteur le montant
+
+               std::ofstream file_out2("data.json");
+               write_json(file_out2, pt_write);
+               file_out2.close();
+
+               std::ifstream file_in2("data.json");
+               read_json(file_in2, pt_write);
+               file_in2.close();
+
+
+               auto Lcompte = std::to_string(compte_emetteur);
+               auto Lcompte2 = std::to_string(compte_recepteur);
+               auto Lmontant = std::to_string(compte_montant);
+
+               wxMessageBox(wxT("Virement d'un montant de ") + wxT(montant)+wxT(" euros de votre compte n°") + wxT(compte) + wxT(" vers le compte n°") + wxT(compte2) + wxT(" effectué avec succès"));
+            }
+            else {
+
+                if (verif_account_exists(pt_write, compte_emetteur) == 1) {
+                    wxMessageBox("Le numéro de compte recepteur n'existe pas dans nos données,veuillez réessayer en changeant de destinataire");
+                    numero = " ";
+                }
+                else {
+                    wxMessageBox("Votre numéro de compte emetteur n'existe pas dans nos données,veuillez réessayer avec un autre numéro ou créez un compte");
+                    numero = " ";
+                }
+            }
+
+
+            MyFrame2* frame2 = new MyFrame2(this->nombre);
+            // SetTopWindow(frame);
+            frame2->Show(true);
+            Close(true);
+
+        }
+        catch (std::exception& e)
+        {
+            // Other errors
+            std::cout << "Error :" << e.what() << std::endl;
+        }
+    }
+}
+
+
 
 MyFrame3::MyFrame3(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
@@ -477,6 +565,8 @@ MyFrame3::MyFrame3(int nbr)
     wxStaticText* solde_ = new wxStaticText(panel, -1, Valuecompte.solde_, wxPoint(30, 90), wxSize(250, 20));
     wxStaticText* type = new wxStaticText(panel, -1, "Type : ", wxPoint(10, 120), wxSize(250, 20));
     wxStaticText* type_ = new wxStaticText(panel, -1, Valuecompte.typeCompte_, wxPoint(30, 140), wxSize(250, 20));
+
+
 
     solde->SetForegroundColour(wxColour(255, 255, 255));
     solde_->SetForegroundColour(wxColour(255, 255, 255));
@@ -687,8 +777,11 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
         auto compte_solde = new_account->get_compte_solde();
         auto compte_typecompte = new_account->get_compte_typecompte();
 
+        wxMessageBox(compte_solde + compte_typecompte);
         std::string solde = std::string(compte_solde);
         std::string typeCompte = std::string(compte_typecompte);
+
+        wxMessageBox(solde + typeCompte);
         //long account_numbers; // Only one at this time
 
         srand(time(NULL));

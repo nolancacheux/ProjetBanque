@@ -42,6 +42,8 @@ Operation get_an_operation(ptree& pt_write, int nombre);
 
 Compte get_an_account(ptree& pt_write, int nombre);
 
+ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant);
+
 Customer get_a_customer(ptree& pt_write, int nombre);
 
 ptree write_an_operation(ptree& pt_write, Operation op, Compte account);

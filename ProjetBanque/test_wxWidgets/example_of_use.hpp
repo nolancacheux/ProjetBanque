@@ -83,6 +83,7 @@ private:
 
     void OnConnexion2(wxCommandEvent& event);
     void Retour(wxCommandEvent& event);
+    void OnVirement(wxCommandEvent& event);
 
 
 };

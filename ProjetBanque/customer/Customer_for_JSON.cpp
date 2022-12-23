@@ -210,6 +210,34 @@ Compte get_an_account(ptree& pt_write, int nombre) {
     return retour;
 }
 
+
+
+ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant){
+
+    try {
+        /* for (ptree::value_type& compt : pt_write.get_child("Customers").get_child("Comptes")) {
+             compt.second.push_back({ std::to_string(compte.nombre_), get_a_ptree_from_an_account(compte) });
+         }*/
+
+        int old_montant = pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).get<int>("Solde", 0);
+
+        int nouveau_montant = old_montant + montant;
+
+        pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).put("Solde", nouveau_montant);;
+
+        auto pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
+
+        pt_write.get_child("Customers").get_child("Comptes").erase("Operations");
+
+        pt_write.get_child("Customers").get_child("Comptes").put_child("Operations", pt);
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+    }
+    return pt_write;
+}
+
 Customer get_a_customer(ptree& pt_write, int nombre) {
 
     Customer retour;

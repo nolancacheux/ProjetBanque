@@ -121,7 +121,10 @@ int main(int argc, char** argv) {
 
         pt_write = write_an_operation(pt_write, operation3, get_an_account(pt_write, 333333));
 
-
+        
+        int montant = 10;
+        pt_write = edit_solde_of_an_account(pt_write, 1001111, -montant); // On soustrait à l'émetteur le montant d'où le signe - 
+        pt_write = edit_solde_of_an_account(pt_write, 333333, montant); // On ajoute au recepteur le montant
 
         std::ofstream file_out2("data.json");
         write_json(file_out2, pt_write);
