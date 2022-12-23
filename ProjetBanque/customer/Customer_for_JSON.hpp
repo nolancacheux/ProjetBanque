@@ -44,6 +44,8 @@ Compte get_an_account(ptree& pt_write, int nombre);
 
 ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant);
 
+ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees);
+
 Customer get_a_customer(ptree& pt_write, int nombre);
 
 ptree write_an_operation(ptree& pt_write, Operation op, Compte account);
@@ -57,3 +59,7 @@ bool verif_operation_exists(ptree& pt_write, int nombre);
 bool verif_account_exists(ptree& pt_write, int nombre);
 
 bool verif_customer_exists(ptree& pt_write, int nombre, int banque);
+
+std::vector <Operation> get_all_operations(ptree& pt_write);
+
+std::vector <int> get_all_nbcompte(ptree& pt_write);

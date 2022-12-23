@@ -32,7 +32,7 @@ private:
     void OnChoix3(wxCommandEvent& event);
     void OnChoix4(wxCommandEvent& event);
 
-
+    void OnInterets(wxCommandEvent& event);
 };
 
 

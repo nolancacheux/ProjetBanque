@@ -114,6 +114,51 @@ wxString My_new_Compte_dialog::get_compte_typecompte() {
 	
 }
 
+
+
+My_new_interet_dialog::My_new_interet_dialog(wxWindow* parent, wxWindowID id, const wxString& title)
+
+	: wxDialog(parent, id, title)
+{
+	auto text_compte_typecompte = new wxStaticText(this, -1, "Voir dans combien d'années : ", wxPoint(10, 50), wxSize(180, 20));
+
+	// Crée les boutons de choix radio
+	choice1 = new wxRadioButton(this, wxID_ANY, "+1 an", wxPoint(160, 50), wxSize(180, 20), wxRB_GROUP);
+	choice2 = new wxRadioButton(this, wxID_ANY, "+5 ans", wxPoint(160, 80), wxSize(180, 20));
+	choice3 = new wxRadioButton(this, wxID_ANY, "+10 ans", wxPoint(160, 110), wxSize(180, 20));
+
+	wxButton* b = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 180), wxDefaultSize);
+	wxButton* c = new wxButton(this, wxID_CANCEL, _("Cancel"), wxPoint(100, 180), wxDefaultSize);
+
+}
+
+
+wxString My_new_interet_dialog::get_interet_annees() {
+
+	wxString retour = "ERROR";
+	if (choice1->GetValue()) {
+		std::string str = "1";
+		wxString retour(str);
+		return retour;
+	}
+	else if (choice2->GetValue()) {
+		std::string str = "5";
+		wxString retour(str);
+		return retour;
+	}
+	else if (choice3->GetValue()) {
+		std::string str = "10";
+		wxString retour(str);
+		return retour;
+	}
+	else {
+		std::string str = "0";
+		wxString retour(str);
+		return retour;
+	}
+
+}
+
 My_virement_dialog::My_virement_dialog(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	: wxDialog(parent, id, title)

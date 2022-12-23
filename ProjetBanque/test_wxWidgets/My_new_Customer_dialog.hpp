@@ -53,6 +53,25 @@ private:
 	wxRadioButton* choice3;
 };
 
+
+
+class My_new_interet_dialog : public wxDialog
+{
+public:
+
+	My_new_interet_dialog(wxWindow* parent, wxWindowID id, const wxString& title);
+
+	wxString get_interet_annees();
+
+private:
+
+	wxRadioButton* choice1;
+	wxRadioButton* choice2;
+	wxRadioButton* choice3;
+};
+
+
+
 class My_virement_dialog : public wxDialog
 {
 public:

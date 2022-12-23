@@ -112,7 +112,10 @@ MyFrame0::MyFrame0()
 
     text->SetForegroundColour(wxColour(255, 255, 255));
 
+    wxButton* interet = new wxButton(panel, 5, "Voir vos soldes futurs avec les intérets", wxPoint(250, 50), wxSize(250, 35));
+    interet->Bind(wxEVT_BUTTON, &MyFrame0::OnInterets, this);
 }
+
 int banque = 0;
 
 void MyFrame0::OnChoix1(wxCommandEvent& event) {
@@ -462,6 +465,36 @@ void MyFrame2::OnVirement(wxCommandEvent& event) {
 
                pt_write = edit_solde_of_an_account(pt_write, compte_emetteur, -compte_montant); // On soustrait à l'émetteur le montant d'où le signe - 
                pt_write = edit_solde_of_an_account(pt_write, compte_recepteur, compte_montant); // On ajoute au recepteur le montant
+
+               //On ajoute ces opérations dans chacun des comptes
+
+         
+               //Operation operation(operations_numbers, std::move(dateOperation), std::move(Montant), std::move(Type), std::move(Emetteur), std::move(Recepteur), std::move(Motif));
+
+               srand(time(NULL));
+               int num = rand();
+
+               Operation operation1(num, 
+                   "23/12/2022",
+                   std::move(std::to_string(compte_montant)),
+                   "Virement ",
+                   std::move(std::to_string(compte_emetteur)),
+                   std::move(std::to_string(compte_recepteur)),
+                    "Argent envoye depuis notre compte");
+
+               srand(time(NULL));
+               int num2 = rand();
+
+               Operation operation2(num2,
+                   "23/12/2022",
+                   std::move(std::to_string(compte_montant)),
+                   "Virement",
+                   std::move(std::to_string(compte_emetteur)),
+                   std::move(std::to_string(compte_recepteur)),
+                   "Argent recu vers notre compte");
+
+               pt_write = write_an_operation(pt_write, operation1, get_an_account(pt_write, compte_emetteur));
+               pt_write = write_an_operation(pt_write, operation2, get_an_account(pt_write, compte_recepteur));
 
                std::ofstream file_out2("data.json");
                write_json(file_out2, pt_write);
@@ -898,3 +931,51 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
         }
     }
 }
+void MyFrame0::OnInterets(wxCommandEvent& event)
+{
+
+    auto new_interet = new My_new_interet_dialog(this, wxID_ANY, "Test_Dialog");
+
+    if (new_interet->ShowModal() == wxID_OK)
+    {
+
+        auto interets_annees = new_interet->get_interet_annees();
+        int annees = wxAtoi(interets_annees);
+
+        ptree pt_write;
+        try
+        {
+
+            std::ifstream file_in("data.json");
+            read_json(file_in, pt_write);
+            file_in.close();
+
+            pt_write = edit_solde_of_all_account_interets(pt_write, annees);
+
+            std::ofstream file_out2("data.json");
+            write_json(file_out2, pt_write);
+            file_out2.close();
+
+            std::ifstream file_in2("data.json");
+            read_json(file_in2, pt_write);
+            file_in2.close();
+
+
+
+            MyFrame0* frame0 = new MyFrame0();
+            // SetTopWindow(frame);
+            frame0->Show(true);
+            Close(true);
+
+            wxMessageBox("Les intérêts composés ont été appliqués à tous vos comptes avec succès");
+
+        }
+        catch (std::exception& e)
+        {
+            // Other errors
+            std::cout << "Error :" << e.what() << std::endl;
+            wxMessageBox(e.what());
+        }
+    }
+}
+

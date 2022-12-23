@@ -1,5 +1,5 @@
 #include "Customer_for_JSON.hpp"
-
+#include <cmath>
 
 //Compte compte1 = get_a_ptree_from_a_account(const Compte & compte)
 
@@ -219,9 +219,9 @@ ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant){
              compt.second.push_back({ std::to_string(compte.nombre_), get_a_ptree_from_an_account(compte) });
          }*/
 
-        int old_montant = pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).get<int>("Solde", 0);
+        float old_montant = pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).get<float>("Solde", 0);
 
-        int nouveau_montant = old_montant + montant;
+        float nouveau_montant = old_montant + montant;
 
         pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).put("Solde", nouveau_montant);;
 
@@ -237,6 +237,73 @@ ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant){
     }
     return pt_write;
 }
+
+ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees) {
+
+    try {
+        /* for (ptree::value_type& compt : pt_write.get_child("Customers").get_child("Comptes")) {
+             compt.second.push_back({ std::to_string(compte.nombre_), get_a_ptree_from_an_account(compte) });
+         }*/
+
+        auto nbrcomptes = get_all_nbcompte(pt_write);
+
+        int n = 12;
+        annees *= n;
+
+        //n est le nombre de fois où les intérêts sont composés par période de temps 
+        //Géneralement dans une banque , les intérets sont composes mensuellement donc n = 12;
+
+        for (auto i = nbrcomptes.begin(); i != nbrcomptes.end(); ++i) {
+            //std::cout << *i << std::endl;
+
+
+            float old_montant = pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(*i)).get<float>("Solde", 0);
+
+            std::string interet = pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(*i)).get<std::string>("TypeCompte");
+
+            //std::cout << interet << std::endl;
+
+            float nouveau_montant = old_montant;
+
+            float multby = 1;
+
+            // FUTUR MONTANT : P(1 + r / n) ^ (nt), où P est le solde initial du capital, r est le taux d’intérêt, n est le nombre de fois où les intérêts sont composés par période de temps
+
+            if (interet == "Livret A (Interet : 3%)") {
+
+                for (int i = 0; i < annees; i++) {
+                    multby *= (1 + 0.03 / n);
+                }
+                nouveau_montant = old_montant * multby ;
+                std::cout << "Livret A (Interet : 3%)" << " - Ancien Montant :" << old_montant << " - Nouveau Montant :" << nouveau_montant << std::endl;
+            }
+            else {
+                if (interet == "PEA (Interet : 15%)") {
+                    for (int i = 0; i < annees; i++) {
+                        multby *= (1 + 0.15 / n);
+                    }
+                    nouveau_montant =old_montant * multby;
+                    std::cout << "PEA (Interet : 15%)" << " - Ancien Montant :" << old_montant << " - Nouveau Montant :" << nouveau_montant << std::endl;
+                }
+            }
+            float rounded = round(nouveau_montant * 100) / 100;
+
+            pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(*i)).put("Solde", rounded);
+
+            auto pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
+
+            pt_write.get_child("Customers").get_child("Comptes").erase("Operations");
+
+            pt_write.get_child("Customers").get_child("Comptes").put_child("Operations", pt);
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+    }
+    return pt_write;
+}
+
 
 Customer get_a_customer(ptree& pt_write, int nombre) {
 
@@ -343,4 +410,40 @@ ptree write_a_customer(ptree& pt_write, Customer customers) {
         // Other errors
     }
     return pt_write;
+}
+
+std::vector <Operation> get_all_operations(ptree& pt_write) {
+    std::vector<Operation> retour;
+    try {
+
+        for (ptree::value_type& operation : pt_write.get_child("Customers").get_child("Comptes").get_child("Operations")) {
+            auto custom2 = get_an_operation_from_a_ptree(operation.second);
+            retour.push_back(custom2);
+            //std::cout << custom2;
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+        std::cout << "pas d'ope" << std::endl;
+    }
+    return retour;
+}
+
+std::vector <int> get_all_nbcompte(ptree& pt_write) {
+    std::vector<int> retour;
+    try {
+
+        for (ptree::value_type& operation : pt_write.get_child("Customers").get_child("Comptes")) {
+            auto custom2 = get_an_account_from_a_ptree(operation.second);
+            retour.push_back(custom2.nombre_);
+            //std::cout << custom2;
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+        std::cout << e.what() << std::endl;
+    }
+    return retour;
 }
