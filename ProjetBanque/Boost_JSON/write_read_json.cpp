@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     ptree pt_accounts2;
 
     ptree pt_write3;
-    ptree pt_accounts3; 
+    ptree pt_accounts3;
 
     try {
 
@@ -53,9 +53,9 @@ int main(int argc, char** argv) {
         }
         */
 
-        Compte Compte1(1001111, "1000", "Courant", { operation1.nombre_ });
+        Compte Compte1(1001111, "1000", "PEA (Interet : 15%)", { operation1.nombre_ });
 
-        Compte Compte2(1012111, "1001", "Courant", { operation2.nombre_ });
+        Compte Compte2(1012111, "1001", "PEA (Interet : 15%)", { operation2.nombre_ });
 
         //Compte Compte2(1012, "1001", "Courant", pt_accounts3);
 
@@ -81,10 +81,10 @@ int main(int argc, char** argv) {
             std::cout << custom << std::endl;
         }*/
 
-        Customer customer1(100222221,1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
+        Customer customer1(100222221, 1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
             { Compte1.nombre_ });
 
-        Customer customer2(100222222,1, "Hoste", "Matthieu", "1 rue de la liberte Paris", "matthieu.hoste@student.junia.com", "06 23 67 82 00", "0987654321",
+        Customer customer2(100222222, 1, "Hoste", "Matthieu", "1 rue de la liberte Paris", "matthieu.hoste@student.junia.com", "06 23 67 82 00", "0987654321",
             { Compte2.nombre_ });
 
         pt_accounts.push_back({ std::to_string(customer1.nombre_), get_a_ptree_from_a_customer(customer1) });
@@ -110,10 +110,10 @@ int main(int argc, char** argv) {
 
         Operation operation3(99999, "20AAA19-01-01", "1000", "AAAAAAA", "1234AAAAAA56789", "1234567AAA89", "mami vAAAAAirement");
 
-        Customer customer3(8888888,1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
+        Customer customer3(8888888, 1, "Montuori", "Milo", "1 rue de la liberte Paris", "milo.montuori@student.junia.com", "06 23 67 82 00", "1234567890",
             { 0 });
 
-        Compte compte3(333333, "1000", "Courant", { 0 });
+        Compte compte3(333333, "1000", "Livret A (Interet : 3%)", { 0 });
 
         pt_write = write_a_customer(pt_write, customer3);
 
@@ -121,6 +121,22 @@ int main(int argc, char** argv) {
 
         pt_write = write_an_operation(pt_write, operation3, get_an_account(pt_write, 333333));
 
+
+        int montant = 10;
+        pt_write = edit_solde_of_an_account(pt_write, 1001111, -montant); // On soustrait à l'émetteur le montant d'où le signe - 
+        pt_write = edit_solde_of_an_account(pt_write, 333333, montant); // On ajoute au recepteur le montant
+
+
+        std::ofstream file_out111("data.json");
+        write_json(file_out111, pt_write);
+        file_out111.close();
+
+
+        std::ifstream file_in11("data.json");
+        read_json(file_in11, pt_write);
+        file_in11.close();
+
+        pt_write = edit_solde_of_all_account_interets(pt_write, 5); // Après 10 ans 
 
 
         std::ofstream file_out2("data.json");
