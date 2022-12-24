@@ -152,3 +152,11 @@ enum class My_class_operation : int
     ID_Operation_field = 2,
     ID_Operations_save = 3
 };
+
+void design_texte(wxStaticText* text) {
+    text->SetForegroundColour(wxColour(255, 255, 255));
+    wxFont FontText = text->GetFont();
+    FontText.SetPointSize(15);
+    FontText.SetFaceName("Arial");
+    text->SetFont(FontText);
+}

@@ -21,7 +21,7 @@ MyFrame0::MyFrame0()
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
 
-    SetBackgroundColour(wxColour(51, 65, 94));
+    SetBackgroundColour(wxColour(32,32,32));
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
         "Add a customer");
@@ -64,57 +64,58 @@ MyFrame0::MyFrame0()
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(130, 100), wxSize(200, 150));
+    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(275, 100), wxSize(200, 50));
     bank1->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
     bank1->SetBackgroundColour(wxColour(60, 151, 105));
     bank1->SetForegroundColour(*wxWHITE);
     wxFont font1 = bank1->GetFont();
-    font1.SetPointSize(20);
-    font1.SetFaceName("Verdana");
+    font1.SetPointSize(15);
+    font1.SetFaceName("Arial");
     bank1->SetFont(font1);
 
-    wxButton* bank2 = new wxButton(panel, 6, "Banque 2", wxPoint(430, 100), wxSize(200, 150));
+    wxButton* bank2 = new wxButton(panel, 6, "Banque 2", wxPoint(275, 175), wxSize(200, 50));
     bank2->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix2, this);
     bank2->SetBackgroundColour(wxColour(89, 60, 151));
     bank2->SetForegroundColour(*wxWHITE);
     wxFont font2 = bank2->GetFont();
-    font2.SetPointSize(20);
-    font2.SetFaceName("Verdana");
+    font2.SetPointSize(15);
+    font2.SetFaceName("Arial");
     bank2->SetFont(font2);
 
-    wxButton* bank3 = new wxButton(panel, 7, "Banque 3", wxPoint(130, 300), wxSize(200, 150));
+    wxButton* bank3 = new wxButton(panel, 7, "Banque 3", wxPoint(275, 250), wxSize(200, 50));
     bank3->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix3, this);
     bank3->SetBackgroundColour(wxColour(172, 40, 40));
     bank3->SetForegroundColour(*wxWHITE);
     wxFont font3 = bank3->GetFont();
-    font3.SetPointSize(20);
-    font3.SetFaceName("Verdana");
+    font3.SetPointSize(15);
+    font3.SetFaceName("Arial");
     bank3->SetFont(font3);
 
-    wxButton* bank4 = new wxButton(panel, 8, "Banque 4", wxPoint(430, 300), wxSize(200, 150));
+    wxButton* bank4 = new wxButton(panel, 8, "Banque 4", wxPoint(275, 325), wxSize(200, 50));
     bank4->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix4, this);
     bank4->SetBackgroundColour(wxColour(122, 113, 89));
     bank4->SetForegroundColour(*wxWHITE);
     wxFont font4 = bank4->GetFont();
-    font4.SetPointSize(20);
-    font4.SetFaceName("Verdana");
+    font4.SetPointSize(15);
+    font4.SetFaceName("Arial");
     bank4->SetFont(font4);
 
     // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
 
 
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue, choisissez votre banque !", wxPoint(130, 10));
-    // Changer la taille du texte
-    wxFont FontText = text->GetFont();
-    FontText.SetPointSize(20);
-    FontText.SetFaceName("Times New Roman");
-    text->SetFont(FontText);
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Système de gestion bancaire ", wxPoint(250, 50));
+    design_texte(text);
 
-    text->SetForegroundColour(wxColour(255, 255, 255));
-
-    wxButton* interet = new wxButton(panel, 5, "Voir vos soldes futurs avec les intérets", wxPoint(250, 50), wxSize(250, 35));
+    wxButton* interet = new wxButton(panel, 9, "Simulation du temps - Intérêts", wxPoint(250, 400), wxSize(250, 35));
     interet->Bind(wxEVT_BUTTON, &MyFrame0::OnInterets, this);
+    interet->SetBackgroundColour(wxColour(62, 62, 62));
+    interet->SetForegroundColour(*wxWHITE);
+    wxFont fond = interet->GetFont();
+    //fond.SetPointSize(20);
+    fond.SetFaceName("Verdana");
+    interet->SetFont(fond);
 }
+
 
 int banque = 0;
 
@@ -153,7 +154,8 @@ MyFrame::MyFrame(int banque)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
     this->banque = banque;
-    switch (banque) {
+    SetBackgroundColour(wxColour(32, 32, 32));
+    /*switch (banque) {
         case 1 : 
             SetBackgroundColour(wxColour(60, 151, 105));
             break;
@@ -169,7 +171,7 @@ MyFrame::MyFrame(int banque)
         default:
             SetBackgroundColour(wxColour(51, 65, 94));
             break;
-    }
+    }*/
     
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
@@ -281,7 +283,7 @@ MyFrame2::MyFrame2(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
     this->nombre = nbr;
-    SetBackgroundColour(wxColour(51, 65, 94));
+    SetBackgroundColour(wxColour(32, 32, 32));
     wxMenu* menuFile2 = new wxMenu;
 
     menuFile2->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
@@ -338,28 +340,23 @@ MyFrame2::MyFrame2(int nbr)
     wxStaticText* nom = new wxStaticText(panel, -1, "Nom : ", wxPoint(10, 20), wxSize(250, 50));
     wxStaticText* nom_ = new wxStaticText(panel, -1, clientvalue.nom_, wxPoint(30, 40), wxSize(180, 20));
 
-    nom->SetForegroundColour(wxColour(255, 255, 255));
-    nom_->SetForegroundColour(wxColour(255, 255, 255)); 
+    design_texte(nom); design_texte(nom_);
 
     wxStaticText* prenom = new wxStaticText(panel, -1, "Prénom : ", wxPoint(10, 70), wxSize(180, 20));
     wxStaticText* prenom_ = new wxStaticText(panel, -1, clientvalue.prenom_, wxPoint(30, 90), wxSize(180, 20));
-    prenom->SetForegroundColour(wxColour(255, 255, 255));
-    prenom_->SetForegroundColour(wxColour(255, 255, 255));
+    design_texte(prenom);design_texte(prenom_);
 
     wxStaticText* adresse = new wxStaticText(panel, -1, "Adresse : ", wxPoint(10, 120), wxSize(180, 20));
     wxStaticText* adresse_ = new wxStaticText(panel, -1, clientvalue.adresse_, wxPoint(30, 140), wxSize(180, 20));
-    adresse->SetForegroundColour(wxColour(255, 255, 255));
-    adresse_->SetForegroundColour(wxColour(255, 255, 255));
+    design_texte(adresse); design_texte(adresse_);
 
     wxStaticText* mail = new wxStaticText(panel, -1, "Mail : ", wxPoint(10, 170), wxSize(180, 20));
     wxStaticText* mail_ = new wxStaticText(panel, -1, clientvalue.mail_, wxPoint(30, 190), wxSize(180, 20));
-    mail->SetForegroundColour(wxColour(255, 255, 255));
-    mail_->SetForegroundColour(wxColour(255, 255, 255));
+    design_texte(mail); design_texte(mail_);
 
     wxStaticText* telephone = new wxStaticText(panel, -1, "Telephone : ", wxPoint(10, 220), wxSize(180, 20));
     wxStaticText* telephone_ = new wxStaticText(panel, -1, clientvalue.telephone_, wxPoint(30, 240), wxSize(180, 20));
-    telephone->SetForegroundColour(wxColour(255, 255, 255));
-    telephone_->SetForegroundColour(wxColour(255, 255, 255));
+    design_texte(telephone); design_texte(telephone_);
 
     std::stringstream ss;
     copy(clientvalue.comptes_.begin(), clientvalue.comptes_.end(), ostream_iterator<int>(ss, " - "));
@@ -368,8 +365,7 @@ MyFrame2::MyFrame2(int nbr)
 
     wxStaticText* compte = new wxStaticText(panel, -1, "Comptes : ", wxPoint(10, 220), wxSize(180, 20));
     wxStaticText* compte_ = new wxStaticText(panel, -1, s, wxPoint(30, 240), wxSize(180, 20));
-    compte->SetForegroundColour(wxColour(255, 255, 255));
-    compte_->SetForegroundColour(wxColour(255, 255, 255));
+    design_texte(compte); design_texte(compte_);
 
 
 
