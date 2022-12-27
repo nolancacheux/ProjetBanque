@@ -13,7 +13,6 @@
 #include "Customer.hpp"
 #include "My_new_Customer_dialog.hpp"
 #include "Customer_for_JSON.hpp"
-#include "../socket/client.hpp"
 
 class MyApp : public wxApp
 {
@@ -33,7 +32,7 @@ private:
     void OnChoix3(wxCommandEvent& event);
     void OnChoix4(wxCommandEvent& event);
 
-
+    void OnInterets(wxCommandEvent& event);
 };
 
 
@@ -84,6 +83,7 @@ private:
 
     void OnConnexion2(wxCommandEvent& event);
     void Retour(wxCommandEvent& event);
+    void OnVirement(wxCommandEvent& event);
 
 
 };

@@ -177,7 +177,11 @@ MyFrame0::MyFrame0()
 
     text->SetForegroundColour(wxColour(255, 255, 255));
 
+    wxButton* interet = new wxButton(panel, 5, "Voir vos soldes futurs avec les intérets", wxPoint(250, 50), wxSize(250, 35));
+    interet->Bind(wxEVT_BUTTON, &MyFrame0::OnInterets, this);
+
 }
+
 int banque = 0;
 
 void MyFrame0::OnChoix1(wxCommandEvent& event) {
@@ -385,6 +389,10 @@ MyFrame2::MyFrame2(int nbr)
 
     wxButton* button2 = new wxButton(panel, 5, "New Account", wxPoint(340, 150), wxSize(100, 35));
     button2->Bind(wxEVT_BUTTON, &MyFrame2::OnAdd_Account, this);
+
+
+    wxButton* button3 = new wxButton(panel, 5, "Virement", wxPoint(340, 200), wxSize(100, 35));
+    button3->Bind(wxEVT_BUTTON, &MyFrame2::OnVirement, this);
 
     text->SetForegroundColour(wxColour(255, 255, 255));
     Account->SetForegroundColour(wxColour(255, 255, 255));
@@ -866,6 +874,165 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
             MyFrame3* frame3 = new MyFrame3(this->nombre);
             // SetTopWindow(frame);
             frame3->Show(true);
+            Close(true);
+
+        }
+        catch (std::exception& e)
+        {
+            // Other errors
+            std::cout << "Error :" << e.what() << std::endl;
+        }
+    }
+}
+
+void MyFrame0::OnInterets(wxCommandEvent& event)
+{
+
+    auto new_interet = new My_new_interet_dialog(this, wxID_ANY, "Test_Dialog");
+
+    if (new_interet->ShowModal() == wxID_OK)
+    {
+
+        auto interets_annees = new_interet->get_interet_annees();
+        int annees = wxAtoi(interets_annees);
+
+        ptree pt_write;
+        try
+        {
+            for (size_t i = 1; i < 5; i++)
+            {
+
+                string bankreq = ClientRequest("getbank|" + to_string(i));
+
+                std::ifstream file_in(bankreq);
+                read_json(file_in, pt_write);
+                file_in.close();
+
+                pt_write = edit_solde_of_all_account_interets(pt_write, annees);
+
+                std::ofstream file_out2(bankreq);
+                write_json(file_out2, pt_write);
+                file_out2.close();
+
+            }
+            //std::ifstream file_in2("data.json");
+            //read_json(file_in2, pt_write);
+            //file_in2.close();
+
+
+
+            MyFrame0* frame0 = new MyFrame0();
+            // SetTopWindow(frame);
+            frame0->Show(true);
+            Close(true);
+
+            wxMessageBox("Les intérêts composés ont été appliqués à tous vos comptes avec succès");
+
+        }
+        catch (std::exception& e)
+        {
+            // Other errors
+            std::cout << "Error :" << e.what() << std::endl;
+            wxMessageBox(e.what());
+        }
+    }
+}
+
+
+
+void MyFrame2::OnVirement(wxCommandEvent& event) {
+
+    auto new_account = new My_virement_dialog(this, wxID_ANY, "Test_Dialog");
+
+    if (new_account->ShowModal() == wxID_OK)
+    {
+        auto virement_emetteur = new_account->get_virement_emetteur();
+        auto virement_recepteur = new_account->get_virement_recepteur();
+        auto virement_montant = new_account->get_virement_montant();
+
+        std::string emetteur = std::string(virement_emetteur);
+        std::string recepteur = std::string(virement_recepteur);
+        std::string montant = std::string(virement_montant);
+        //long account_numbers; // Only one at this time
+
+
+
+        int compte_emetteur = std::stoi(emetteur);
+        int compte_recepteur = std::stoi(recepteur);
+        int compte_montant = std::stoi(montant);
+
+        ptree pt_write;
+        ptree pt_accounts;
+        try
+        {
+
+            std::ifstream file_in(bankjson);
+            read_json(file_in, pt_write);
+            file_in.close();
+
+            if ((verif_account_exists(pt_write, compte_emetteur) == 1) && (verif_account_exists(pt_write, compte_recepteur) == 1)) {
+
+                pt_write = edit_solde_of_an_account(pt_write, compte_emetteur, -compte_montant); // On soustrait à l'émetteur le montant d'où le signe - 
+                pt_write = edit_solde_of_an_account(pt_write, compte_recepteur, compte_montant); // On ajoute au recepteur le montant
+
+                //On ajoute ces opérations dans chacun des comptes
+
+
+                //Operation operation(operations_numbers, std::move(dateOperation), std::move(Montant), std::move(Type), std::move(Emetteur), std::move(Recepteur), std::move(Motif));
+
+                srand(time(NULL));
+                int num = rand();
+
+                Operation operation1(num,
+                    "23/12/2022",
+                    std::move(std::to_string(compte_montant)),
+                    "Virement ",
+                    std::move(std::to_string(compte_emetteur)),
+                    std::move(std::to_string(compte_recepteur)),
+                    "Argent envoye depuis notre compte");
+
+                srand(time(NULL));
+                int num2 = rand();
+
+                Operation operation2(num2,
+                    "23/12/2022",
+                    std::move(std::to_string(compte_montant)),
+                    "Virement",
+                    std::move(std::to_string(compte_emetteur)),
+                    std::move(std::to_string(compte_recepteur)),
+                    "Argent recu vers notre compte");
+
+                pt_write = write_an_operation(pt_write, operation1, get_an_account(pt_write, compte_emetteur));
+                pt_write = write_an_operation(pt_write, operation2, get_an_account(pt_write, compte_recepteur));
+
+                std::ofstream file_out2(bankjson);
+                write_json(file_out2, pt_write);
+                file_out2.close();
+
+
+                auto Lcompte = std::to_string(compte_emetteur);
+                auto Lcompte2 = std::to_string(compte_recepteur);
+                auto Lmontant = std::to_string(compte_montant);
+
+                wxMessageBox(wxT("Virement d'un montant de ") + wxT(montant) + wxT(" euros de votre compte n°") + wxT(compte) + wxT(" vers le compte n°") + wxT(compte2) + wxT(" effectué avec succès"));
+            }
+            else {
+
+                if (verif_account_exists(pt_write, compte_emetteur) == 1) {
+
+                    wxMessageBox("Le numéro de compte recepteur n'existe pas dans nos données,veuillez réessayer en changeant de destinataire");
+                    numero = " ";
+                }
+                else {
+                    wxMessageBox("Votre numéro de compte emetteur n'existe pas dans nos données,veuillez réessayer avec un autre numéro ou créez un compte");
+                    numero = " ";
+                }
+            }
+
+
+            MyFrame2* frame2 = new MyFrame2(this->nombre);
+            // SetTopWindow(frame);
+            frame2->Show(true);
             Close(true);
 
         }

@@ -40,7 +40,7 @@ void send_(tcp::socket& socket, const string& message)
 string returnCustomer(int nombre) {
     // create ptree to send to user
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in(oui);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -54,7 +54,7 @@ string returnCustomer(int nombre) {
 string returnCompte(int nombre) {
     // create ptree to send to user
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in(oui);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -68,7 +68,7 @@ string returnCompte(int nombre) {
 string returnOperation(int nombre) {
     // create ptree to send to user
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in(oui);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -82,7 +82,7 @@ string returnOperation(int nombre) {
 string returnAllOperation() {
     // create ptree to send to user
     ptree pt_write;
-    std::ifstream file_in("example_write_read.json");
+    std::ifstream file_in(oui);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -92,9 +92,29 @@ string returnAllOperation() {
     
     for (int i = 0; i < Opes.size(); i++) {
         data += Opes[i].serialize();
+        data += "=";
+    }
+
+    return data;
+}
+string returnAllAccount() {
+    // create ptree to send to user
+    ptree pt_write;
+    std::ifstream file_in(oui);
+    read_json(file_in, pt_write);
+    file_in.close();
+
+    std::string data;
+    auto nbrcomptes = get_all_nbcompte(pt_write);
+
+    for (auto i = nbrcomptes.begin(); i != nbrcomptes.end(); ++i) {
+        //std::cout << *i << std::endl;
+        data += std::to_string(*i);
         data += "-";
     }
 
+    //cout << data;
+        
     return data;
 }
 
@@ -110,7 +130,16 @@ string DataDeserialize(string data) {
             return "0";
         }
     }
-
+    if (data == "getallacc\n") {
+        //try
+        //{
+            return returnAllAccount();
+        //}
+        //catch (const std::exception&)
+        //{
+        //    return "0";
+        //}
+    }
     std::vector<string> result;
     boost::split(result, data, boost::is_any_of("|"));
 
@@ -181,7 +210,8 @@ int main(int argc, char** argv)
     //string prout = "100222222|getcusto|100222222";
     //string prout = "100222222|getcompte|1001111";
     //string prout = "100222222|getope|1001";
-    //string prout = "getallope";
+    //string prout = "getallacc\n";
+    //string prout = "getallope\n";
     //cout << DataDeserialize(prout);
 
     while (1)

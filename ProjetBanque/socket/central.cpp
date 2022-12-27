@@ -105,29 +105,132 @@ string request(string msg, const int port) {
 
 string get_all_operation() {
     ptree pt;
-    std::ifstream file_in("UserBankList.json");
-    read_json(file_in, pt);
-    file_in.close();
+    ptree pta;
+    ptree pt_write;
 
-   
     string data = "";
     string req = "getallope";
 
 
     int BankNumber = 1111;
     data += request(req, BankNumber);
+    data += "$";
 
     BankNumber = 2222;
     data += request(req, BankNumber);
+    data += "$";
 
-    return data;
+    BankNumber = 3333;
+    data += request(req, BankNumber);
+    data += "$";
+
+    BankNumber = 4444;
+    data += request(req, BankNumber);
+    data += "$";
+
+    //cout << data << endl;
+    std::vector<string> result;
+    std::vector<string> resu;
+    std::vector<string> res;
+    int banq;
+
+    boost::split(result, data, boost::is_any_of("$"));
+    for (size_t i = 0; i < result.size(); i++)
+    {
+        banq = i + 1;
+        boost::split(resu, result[i], boost::is_any_of("="));
+        for (size_t i = 0; i < resu[i].size(); i++)
+        {
+            //cout << resu[i];
+            boost::split(res, resu[i], boost::is_any_of("|"));
+            //cout << res[i];
+            pta.put("Nombre", res[0]);
+            pta.put("DateOperation", res[1]);
+            pta.put("Montant", res[2]);
+            pta.put("Type", res[3]);
+            pta.put("Emetteur", res[4]);
+            pta.put("Recepteur", res[5]);
+            pta.put("Motif", res[6]);
+            pta.put("Banque", std::to_string(banq));
+            pt.push_back({ res[0], pta });
+            pta.clear();
+        }
+    }
+    pt_write.add_child("Operations", pt);
+
+    std::ofstream file_out("AllOperations.json");
+    write_json(file_out, pt_write);
+    file_out.close();
+
+    return "GetAllOperation Success";
 }
+
+string get_all_account() {
+    ptree pt;
+    ptree pta;
+    ptree pt_write;
+
+    string data = "";
+    string req = "getallacc";
+
+
+    int BankNumber = 1111;
+    data += request(req, BankNumber);
+    data += "$";
+
+    BankNumber = 2222;
+    data += request(req, BankNumber);
+    data += "$";
+
+    BankNumber = 3333;
+    data += request(req, BankNumber);
+    data += "$";
+
+    BankNumber = 4444;
+    data += request(req, BankNumber);
+    data += "$";
+
+    //cout << data << endl;
+    std::vector<string> result;
+    std::vector<string> res;
+    int banq;
+
+    boost::split(result, data, boost::is_any_of("$"));
+    for (size_t i = 0; i < result.size(); i++)
+    {
+        banq = i+1;
+        boost::split(res, result[i], boost::is_any_of("-"));
+        for (size_t i = 0; i < res[i].size(); i++)
+        {
+            pta.put("Nombre", res[i]);
+            pta.put("Banque", std::to_string(banq));
+            pt.push_back({ res[i], pta });
+            pta.clear();
+        }
+    }
+
+
+    pt_write.add_child("Comptes", pt);
+
+    std::ofstream file_out("UserBankList.json");
+    write_json(file_out, pt_write);
+    file_out.close();
+
+    return "GetAllAccount Success";
+}
+
 
 string DataDeserialize(string data) {
 
     if (data == "getallope") {
         string data;
         data = get_all_operation();
+        return data;
+    }
+
+    if (data == "getallacc") {
+        string data;
+        data = get_all_account();
         return data;
     }
 
@@ -174,8 +277,6 @@ string DataDeserialize(string data) {
 
 
 
-
-
 int main()
 {
     int t = 0;
@@ -184,8 +285,11 @@ int main()
     //string prout = "100222222|getcusto|100222222";
     //string prout = "100222222|getcompte|1001111";
     //string prout = "100222222|getope|1001";
-    //string prout = "getallope";
-    //cout << DataDeserialize(prout);
+    string recoverdata = "getallacc";
+    DataDeserialize(recoverdata);
+
+    recoverdata = "getallope";
+    DataDeserialize(recoverdata);
 
     ///prout = "8888888|getcusto|8888888";
     //string prout = "8888888|getcompte|1001111";
@@ -222,6 +326,7 @@ int main()
 
 
         t += 1;
+
     }
     return 0;
 }
