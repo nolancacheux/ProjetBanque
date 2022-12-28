@@ -204,7 +204,7 @@ MyFrame::MyFrame(int banque)
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 220), wxSize(130, 35));
+    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 250), wxSize(130, 35));
     button->Bind(wxEVT_BUTTON, &MyFrame::OnConnexion, this);
     design_petit_bouton(button);
 
