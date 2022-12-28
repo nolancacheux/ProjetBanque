@@ -10,6 +10,71 @@ wxIMPLEMENT_APP(MyApp);
 
 
 
+
+#include <boost/asio.hpp>
+using namespace boost::asio;
+using ip::tcp;
+string ClientRequest(string request)
+{
+    boost::asio::io_service io_service;
+    // socket creation
+    tcp::socket socket(io_service);
+    // connection
+    try
+    {
+        socket.connect(tcp::endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 1234));
+    }
+    catch (...)
+    {
+        cout << "Pas de connexion vers serv central." << endl;
+        return "0";
+    }
+
+
+    // request/message from client
+
+    //string request = "100222222|getcusto|100222222";
+    //string request = "100222222|getcompte|1001111";
+    //string prout = "100222222|getope|1001";
+    //cout << DataDeserialize(prout);
+
+    //string prout = "8888888|getcusto|8888888";
+    //cout << DataDeserialize(prout);
+
+    request += "\n";
+    boost::system::error_code error;
+    boost::asio::write(socket, boost::asio::buffer(request), error);
+    if (!error)
+    {
+        cout << "Envoi d'une requete vers serv central" << endl;
+    }
+    else
+    {
+        cout << "send failed: " << error.message() << endl;
+        return "0";
+    }
+
+
+
+    // getting response from server
+    boost::asio::streambuf receive_buffer;
+    boost::asio::read(socket, receive_buffer, boost::asio::transfer_all(), error);
+
+    if (error && error != boost::asio::error::eof)
+    {
+        cout << "receive failed: " << error.message() << endl;
+        return "0";
+    }
+    else
+    {
+        const char* data = boost::asio::buffer_cast<const char*>(receive_buffer.data());
+        cout << data << endl;
+        return data;
+    }
+}
+
+
+string bankjson;
 bool MyApp::OnInit()
 {
     MyFrame0* frame0 = new MyFrame0();
@@ -119,6 +184,10 @@ MyFrame::MyFrame(int banque)
             break;
     }*/
 
+
+    bankjson = ClientRequest("getbank|" + to_string(banque));
+
+
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
@@ -135,7 +204,7 @@ MyFrame::MyFrame(int banque)
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 250), wxSize(130, 35));
+    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 220), wxSize(130, 35));
     button->Bind(wxEVT_BUTTON, &MyFrame::OnConnexion, this);
     design_petit_bouton(button);
 
@@ -261,7 +330,7 @@ MyFrame2::MyFrame2(int nbr)
     design_texte(Account);
 
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -329,7 +398,7 @@ void MyFrame2::OnConnexion2(wxCommandEvent& event) {
         // wxMessageBox(numero);
 
         ptree pt_write;
-        std::ifstream file_in("data.json");
+        std::ifstream file_in(bankjson);
         read_json(file_in, pt_write);
         file_in.close();
 
@@ -355,119 +424,7 @@ void MyFrame2::OnConnexion2(wxCommandEvent& event) {
     }
 }
 
-void MyFrame2::OnVirement(wxCommandEvent& event) {
 
-    auto new_account = new My_virement_dialog(this, wxID_ANY, "Test_Dialog");
-
-    if (new_account->ShowModal() == wxID_OK)
-    {
-        auto virement_emetteur = new_account->get_virement_emetteur();
-        auto virement_recepteur = new_account->get_virement_recepteur();
-        auto virement_montant = new_account->get_virement_montant();
-
-        std::string emetteur = std::string(virement_emetteur);
-        std::string recepteur = std::string(virement_recepteur);
-        std::string montant = std::string(virement_montant);
-        //long account_numbers; // Only one at this time
-
-        //srand(time(NULL));
-        //auto account_numbers = rand(); // Only one at this time
-        //auto Lombre_compte = std::to_string(account_numbers);
-        ////wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));
-
-        /*Compte account(account_numbers, std::move(solde), std::move(typeCompte), {});
-        accounts_.push_back(account);
-        delete new_account;*/
-
-        int compte_emetteur = std::stoi(emetteur);
-        int compte_recepteur = std::stoi(recepteur);
-        int compte_montant = std::stoi(montant);
-
-        ptree pt_write;
-        ptree pt_accounts;
-        try
-        {
-
-            std::ifstream file_in("data.json");
-            read_json(file_in, pt_write);
-            file_in.close();
-
-            if ((verif_account_exists(pt_write, compte_emetteur) == 1) && (verif_account_exists(pt_write, compte_recepteur) == 1)) {
-
-                pt_write = edit_solde_of_an_account(pt_write, compte_emetteur, -compte_montant); // On soustrait à l'émetteur le montant d'où le signe - 
-                pt_write = edit_solde_of_an_account(pt_write, compte_recepteur, compte_montant); // On ajoute au recepteur le montant
-
-                //On ajoute ces opérations dans chacun des comptes
-
-
-                //Operation operation(operations_numbers, std::move(dateOperation), std::move(Montant), std::move(Type), std::move(Emetteur), std::move(Recepteur), std::move(Motif));
-
-                srand(time(NULL));
-                int num = rand();
-
-                Operation operation1(num,
-                    "23/12/2022",
-                    std::move(std::to_string(compte_montant)),
-                    "Transfer ",
-                    std::move(std::to_string(compte_emetteur)),
-                    std::move(std::to_string(compte_recepteur)),
-                    "Money sent from our account");
-
-                srand(time(NULL));
-                int num2 = rand();
-
-                Operation operation2(num2,
-                    "23/12/2022",
-                    std::move(std::to_string(compte_montant)),
-                    "Transfer",
-                    std::move(std::to_string(compte_emetteur)),
-                    std::move(std::to_string(compte_recepteur)),
-                    "Money received to our account");
-
-                pt_write = write_an_operation(pt_write, operation1, get_an_account(pt_write, compte_emetteur));
-                pt_write = write_an_operation(pt_write, operation2, get_an_account(pt_write, compte_recepteur));
-
-                std::ofstream file_out2("data.json");
-                write_json(file_out2, pt_write);
-                file_out2.close();
-
-                std::ifstream file_in2("data.json");
-                read_json(file_in2, pt_write);
-                file_in2.close();
-
-
-                auto Lcompte = std::to_string(compte_emetteur);
-                auto Lcompte2 = std::to_string(compte_recepteur);
-                auto Lmontant = std::to_string(compte_montant);
-
-                wxMessageBox(wxT("Transfer of an amount of ") + wxT(montant) + wxT(" euros from your account no.") + wxT(compte) + wxT(" to account no.") + wxT(compte2) + wxT(" successfully completed"));
-            }
-            else {
-
-                if (verif_account_exists(pt_write, compte_emetteur) == 1) {
-                    wxMessageBox("The receiver account number does not exist in our data, please try again by changing the receiver number");
-                    numero = " ";
-                }
-                else {
-                    wxMessageBox("Your transmitter account number does not exist in our data, please try again with another number or create an account");
-                    numero = " ";
-                }
-            }
-
-
-            MyFrame2* frame2 = new MyFrame2(this->nombre);
-            // SetTopWindow(frame);
-            frame2->Show(true);
-            Close(true);
-
-        }
-        catch (std::exception& e)
-        {
-            // Other errors
-            std::cout << "Error :" << e.what() << std::endl;
-        }
-    }
-}
 
 
 
@@ -513,7 +470,7 @@ MyFrame3::MyFrame3(int nbr)
     Account->SetForegroundColour(wxColour(255, 255, 255));
 
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
 
@@ -566,7 +523,7 @@ void MyFrame3::OnConnexion3(wxCommandEvent& event) {
         // wxMessageBox(numero);
 
         ptree pt_write;
-        std::ifstream file_in("data.json");
+        std::ifstream file_in(bankjson);
         read_json(file_in, pt_write);
         file_in.close();
 
@@ -597,7 +554,7 @@ MyFrame4::MyFrame4(int nbr)
     this->nombre = nbr;
     wxPanel* panel = new wxPanel(this);
     ptree pt_write;
-    std::ifstream file_in("data.json");
+    std::ifstream file_in(bankjson);
     read_json(file_in, pt_write);
     file_in.close();
     Operation Valueoperation = get_an_operation(pt_write, nbr);
@@ -695,17 +652,17 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
             pt_write = write_a_customer(pt_write, customer);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 
@@ -751,7 +708,7 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -759,11 +716,11 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
 
             pt_write = write_an_account(pt_write, account, custom);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 
@@ -822,7 +779,7 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
         try
         {
 
-            std::ifstream file_in("data.json");
+            std::ifstream file_in(bankjson);
             read_json(file_in, pt_write);
             file_in.close();
 
@@ -830,11 +787,11 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
 
             pt_write = write_an_operation(pt_write, operation, account);
 
-            std::ofstream file_out2("data.json");
+            std::ofstream file_out2(bankjson);
             write_json(file_out2, pt_write);
             file_out2.close();
 
-            std::ifstream file_in2("data.json");
+            std::ifstream file_in2(bankjson);
             read_json(file_in2, pt_write);
             file_in2.close();
 
@@ -850,8 +807,7 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
             std::cout << "Error :" << e.what() << std::endl;
         }
     }
-}
-void MyFrame0::OnInterets(wxCommandEvent& event)
+}void MyFrame0::OnInterets(wxCommandEvent& event)
 {
 
     auto new_interet = new My_new_interet_dialog(this, wxID_ANY, "Test_Dialog");
@@ -865,20 +821,25 @@ void MyFrame0::OnInterets(wxCommandEvent& event)
         ptree pt_write;
         try
         {
+            for (size_t i = 1; i < 5; i++)
+            {
 
-            std::ifstream file_in("data.json");
-            read_json(file_in, pt_write);
-            file_in.close();
+                string bankreq = ClientRequest("getbank|" + to_string(i));
 
-            pt_write = edit_solde_of_all_account_interets(pt_write, annees);
+                std::ifstream file_in(bankreq);
+                read_json(file_in, pt_write);
+                file_in.close();
 
-            std::ofstream file_out2("data.json");
-            write_json(file_out2, pt_write);
-            file_out2.close();
+                pt_write = edit_solde_of_all_account_interets(pt_write, annees);
 
-            std::ifstream file_in2("data.json");
-            read_json(file_in2, pt_write);
-            file_in2.close();
+                std::ofstream file_out2(bankreq);
+                write_json(file_out2, pt_write);
+                file_out2.close();
+
+            }
+            //std::ifstream file_in2("data.json");
+            //read_json(file_in2, pt_write);
+            //file_in2.close();
 
 
 
@@ -888,6 +849,7 @@ void MyFrame0::OnInterets(wxCommandEvent& event)
             Close(true);
 
             wxMessageBox("Compound interest has been successfully applied to all your accounts");
+
 
         }
         catch (std::exception& e)
@@ -899,3 +861,112 @@ void MyFrame0::OnInterets(wxCommandEvent& event)
     }
 }
 
+void MyFrame2::OnVirement(wxCommandEvent& event) {
+
+    auto new_account = new My_virement_dialog(this, wxID_ANY, "Test_Dialog");
+
+    if (new_account->ShowModal() == wxID_OK)
+    {
+        auto virement_emetteur = new_account->get_virement_emetteur();
+        auto virement_recepteur = new_account->get_virement_recepteur();
+        auto virement_montant = new_account->get_virement_montant();
+
+        std::string emetteur = std::string(virement_emetteur);
+        std::string recepteur = std::string(virement_recepteur);
+        std::string montant = std::string(virement_montant);
+        //long account_numbers; // Only one at this time
+
+        //srand(time(NULL));
+        //auto account_numbers = rand(); // Only one at this time
+        //auto Lombre_compte = std::to_string(account_numbers);
+        ////wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));
+
+        /*Compte account(account_numbers, std::move(solde), std::move(typeCompte), {});
+        accounts_.push_back(account);
+        delete new_account;*/
+
+        int compte_emetteur = std::stoi(emetteur);
+        int compte_recepteur = std::stoi(recepteur);
+        int compte_montant = std::stoi(montant);
+
+        ptree pt_write;
+        ptree pt_accounts;
+        try
+        {
+
+            std::ifstream file_in(bankjson);
+            read_json(file_in, pt_write);
+            file_in.close();
+
+            if ((verif_account_exists(pt_write, compte_emetteur) == 1) && (verif_account_exists(pt_write, compte_recepteur) == 1)) {
+
+                pt_write = edit_solde_of_an_account(pt_write, compte_emetteur, -compte_montant); // On soustrait à l'émetteur le montant d'où le signe - 
+                pt_write = edit_solde_of_an_account(pt_write, compte_recepteur, compte_montant); // On ajoute au recepteur le montant
+
+                //On ajoute ces opérations dans chacun des comptes
+
+
+                //Operation operation(operations_numbers, std::move(dateOperation), std::move(Montant), std::move(Type), std::move(Emetteur), std::move(Recepteur), std::move(Motif));
+
+                srand(time(NULL));
+                int num = rand();
+
+                Operation operation1(num,
+                    "23/12/2022",
+                    std::move(std::to_string(compte_montant)),
+                    "Transfer ",
+                    std::move(std::to_string(compte_emetteur)),
+                    std::move(std::to_string(compte_recepteur)),
+                    "Money sent from our account");
+
+                srand(time(NULL));
+                int num2 = rand();
+
+                Operation operation2(num2,
+                    "23/12/2022",
+                    std::move(std::to_string(compte_montant)),
+                    "Transfer",
+                    std::move(std::to_string(compte_emetteur)),
+                    std::move(std::to_string(compte_recepteur)),
+                    "Money received to our account");
+
+                pt_write = write_an_operation(pt_write, operation1, get_an_account(pt_write, compte_emetteur));
+                pt_write = write_an_operation(pt_write, operation2, get_an_account(pt_write, compte_recepteur));
+
+                std::ofstream file_out2(bankjson);
+                write_json(file_out2, pt_write);
+                file_out2.close();
+
+
+                auto Lcompte = std::to_string(compte_emetteur);
+                auto Lcompte2 = std::to_string(compte_recepteur);
+                auto Lmontant = std::to_string(compte_montant);
+
+                wxMessageBox(wxT("Transfer of an amount of ") + wxT(montant) + wxT(" euros from your account no.") + wxT(compte) + wxT(" to account no.") + wxT(compte2) + wxT(" successfully completed"));
+            }
+            else {
+
+                if (verif_account_exists(pt_write, compte_emetteur) == 1) {
+                    wxMessageBox("The receiver account number does not exist in our data, please try again by changing the receiver number");
+                    numero = " ";
+                }
+                else {
+                    wxMessageBox("Your transmitter account number does not exist in our data, please try again with another number or create an account");
+                    numero = " ";
+                }
+            }
+
+
+            MyFrame2* frame2 = new MyFrame2(this->nombre);
+            // SetTopWindow(frame);
+            frame2->Show(true);
+            Close(true);
+
+        }
+        catch (std::exception& e)
+        {
+            // Other errors
+            std::cout << "Error :" << e.what() << std::endl;
+        }
+    }
+}
