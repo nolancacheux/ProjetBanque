@@ -912,7 +912,7 @@ void MyFrame0::OnInterets(wxCommandEvent& event)
 
                 std::ofstream file_out2(bankreq);
                 write_json(file_out2, pt_write);
-                file_out2.close();
+                file_out2.close(); 
 
             }
             //std::ifstream file_in2("data.json");
