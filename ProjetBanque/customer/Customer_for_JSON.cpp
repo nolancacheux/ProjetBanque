@@ -150,6 +150,26 @@ bool verif_account_exists(ptree& pt_write, int nombre) {
     return 0;
 }
 
+
+bool verif_password_customer(ptree& pt_write, int nombre, std::string password) {
+
+    Customer retour;
+    try {
+
+        for (ptree::value_type& customer : pt_write.get_child("Customers")) {
+            auto custom3 = get_a_customer_from_a_ptree(customer.second);
+            std::cout << custom3 << std::endl;
+            if ((custom3.nombre_ == nombre) && (custom3.mot_de_passe_ == password)) { retour = custom3; return 1; }
+        }
+
+    }
+    catch (std::exception& e) {
+        // Other errors
+
+    }
+    return 0;
+
+}
 bool verif_customer_exists(ptree& pt_write, int nombre, int banque) {
 
     Customer retour;

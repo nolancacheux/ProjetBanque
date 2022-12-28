@@ -9,7 +9,7 @@ My_new_Customer_dialog::My_new_Customer_dialog(wxWindow* parent, wxWindowID id, 
 	auto text_customer_adress = new wxStaticText(this, -1, "Address : ", wxPoint(10, 80), wxSize(180, 20));
 	auto text_customer_mail = new wxStaticText(this, -1, "Mail : ", wxPoint(10, 110), wxSize(180, 20));
 	auto text_customer_phone = new wxStaticText(this, -1, "Phone Number : ", wxPoint(10, 140), wxSize(180, 20));
-	auto text_customer_password = new wxStaticText(this, -1, "Password : ", wxPoint(10, 170), wxSize(180, 20));
+	auto text_customer_password = new wxStaticText(this, -1, "Password : ", wxPoint(10, 170), wxSize(180, 20), wxTE_PASSWORD);
 
 
 	edit_customer_firstname_ = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));

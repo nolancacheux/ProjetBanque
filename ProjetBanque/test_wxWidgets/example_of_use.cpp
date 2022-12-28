@@ -135,7 +135,7 @@ MyFrame::MyFrame(int banque)
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 220), wxSize(130, 35));
+    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 250), wxSize(130, 35));
     button->Bind(wxEVT_BUTTON, &MyFrame::OnConnexion, this);
     design_petit_bouton(button);
 
@@ -147,16 +147,19 @@ MyFrame::MyFrame(int banque)
 
 
     wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Welcome to the Bank No." + std::to_string(this->banque) + " ! ", wxPoint(250, 10));
-    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Client Numbers : ", wxPoint(275, 180), wxSize(180, -1));
 
-    text->SetForegroundColour(wxColour(255, 255, 255));
-    Account->SetForegroundColour(wxColour(255, 255, 255));
+    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Client Numbers : ", wxPoint(275, 180), wxSize(180, -1));
+    wxStaticText* password = new wxStaticText(panel, wxID_ANY, "Password : ", wxPoint(275, 210), wxSize(180, -1));
 
     design_grandtitre(text);
     design_texte(Account);
+    design_texte(password);
 
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(405, 180), wxSize(120, -1));
-    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(350, 300), wxSize(110, 35));
+    password_ = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(405, 210), wxSize(120, -1),wxTE_PASSWORD);
+
+
+    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(350, 310), wxSize(110, 35));
     Back->Bind(wxEVT_BUTTON, &MyFrame::Back, this);
     design_petit_bouton(Back);
 
@@ -188,18 +191,20 @@ void MyFrame::OnConnexion(wxCommandEvent& event) {
 
         int nbr = atoi(numero);
 
-        if (verif_customer_exists(pt_write, nbr,banque)==1) {
+        if ((verif_customer_exists(pt_write, nbr, banque) == 1) && (verif_password_customer(pt_write,nbr, password_->GetValue().ToStdString()) == 1)) {
             client = nbr;
             MyFrame2* frame2 = new MyFrame2(nbr);
             frame2->Show(true);
             Close(true);
         }
         else {
-            
-
-            wxMessageBox("This number does not exist in our data");
-            numero = " ";
-
+            if (verif_customer_exists(pt_write, nbr, banque) == 1){
+                wxMessageBox("The password you entered is incorrect, please try again");
+            }
+            else {
+                wxMessageBox("This number does not exist in our data");
+                numero = " ";
+            }
             //auto Lombre_compte = std::to_string(nbr);
             //wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));
         }
