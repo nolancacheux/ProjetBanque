@@ -45,6 +45,7 @@ public:
     int banque = 0;
     bool connexion = false;
     wxTextCtrl* account_numbers;
+    wxTextCtrl* password_;
 
 private:
     void OnAdd_Customer(wxCommandEvent& event);

@@ -60,8 +60,8 @@ bool verif_account_exists(ptree& pt_write, int nombre);
 
 bool verif_customer_exists(ptree& pt_write, int nombre, int banque);
 
-std::vector <Operation> get_all_operations(ptree& pt_write);
+bool verif_password_customer(ptree& pt_write, int nombre, std::string password);
 
-std::vector <Compte> get_all_accounts(ptree& pt_write);
+std::vector <Operation> get_all_operations(ptree& pt_write);
 
 std::vector <int> get_all_nbcompte(ptree& pt_write);
