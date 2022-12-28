@@ -58,7 +58,7 @@ private:
 
 
     void OnConnexion(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 
 };
@@ -82,7 +82,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion2(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
     void OnVirement(wxCommandEvent& event);
 
 
@@ -106,7 +106,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion3(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 
 };
@@ -128,7 +128,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion4(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 };
 

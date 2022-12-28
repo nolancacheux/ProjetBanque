@@ -22,31 +22,12 @@ MyFrame0::MyFrame0()
 {
 
     SetBackgroundColour(wxColour(32,32,32));
-    wxMenu* menuFile = new wxMenu;
-    menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
-        "Add a customer");
-    menuFile->AppendSeparator();
 
-
-
-    /* menuFile->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
-         "Add an Account");
-     menuFile->AppendSeparator();
-
-     menuFile->Append(static_cast<int>(My_class_operation::ID_Add_Operation), "&Add_Operation...\tCtrl-A",
-         "Add an Operation");
-     menuFile->AppendSeparator();*/
-     /*
-     menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
-         "Save customers");
-     menuFile->AppendSeparator();*/
-    menuFile->Append(wxID_EXIT);
 
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
     wxMenuBar* menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&Customers Management");
     menuBar->Append(menuHelp, "&Help");
 
     SetMenuBar(menuBar);
@@ -54,39 +35,28 @@ MyFrame0::MyFrame0()
     CreateStatusBar();
     SetStatusText("Welcome to Bank agency!");
 
-    /* Bind(wxEVT_MENU, &MyFrame::OnAdd_Account, this, static_cast<int>(My_class_compte::ID_Add_Account));
-
-     Bind(wxEVT_MENU, &MyFrame::OnAdd_Operation, this, static_cast<int>(My_class_operation::ID_Add_Operation));*/
-
-    //Bind(wxEVT_MENU, &MyFrame0::OnAbout, this, wxID_ABOUT);
-    /*
-    Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
-    Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* bank1 = new wxButton(panel, 5, "Banque 1", wxPoint(275, 100), wxSize(200, 50));
+    wxButton* bank1 = new wxButton(panel, 5, "Bank no.1", wxPoint(290, 100), wxSize(160, 50));
     bank1->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix1, this);
     design_bouton(bank1);
 
-    wxButton* bank2 = new wxButton(panel, 6, "Banque 2", wxPoint(275, 175), wxSize(200, 50));
+    wxButton* bank2 = new wxButton(panel, 6, "Bank no.2", wxPoint(290, 175), wxSize(160, 50));
     bank2->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix2, this);
     design_bouton(bank2);
 
-    wxButton* bank3 = new wxButton(panel, 7, "Banque 3", wxPoint(275, 250), wxSize(200, 50));
+    wxButton* bank3 = new wxButton(panel, 7, "Bank no.3", wxPoint(290, 250), wxSize(160, 50));
     bank3->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix3, this);
     design_bouton(bank3);
 
-    wxButton* bank4 = new wxButton(panel, 8, "Banque 4", wxPoint(275, 325), wxSize(200, 50));
+    wxButton* bank4 = new wxButton(panel, 8, "Bank no.4", wxPoint(290, 325), wxSize(160, 50));
     bank4->Bind(wxEVT_BUTTON, &MyFrame0::OnChoix4, this);
     design_bouton(bank4);
 
-    // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
-
-
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Système de gestion bancaire ", wxPoint(225, 50));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, " Bank management system", wxPoint(225, 50));
     design_grandtitre(text);
 
-    wxButton* interet = new wxButton(panel, 9, "Simulation du temps - Intérêts", wxPoint(250, 400), wxSize(250, 35));
+    wxButton* interet = new wxButton(panel, 9, "Time Simulation - Interests", wxPoint(250, 400), wxSize(250, 35));
     interet->Bind(wxEVT_BUTTON, &MyFrame0::OnInterets, this);
     interet->SetBackgroundColour(wxColour(62, 62, 62));
     interet->SetForegroundColour(*wxWHITE);
@@ -100,28 +70,24 @@ MyFrame0::MyFrame0()
 int banque = 0;
 
 void MyFrame0::OnChoix1(wxCommandEvent& event) {
-        // wxMessageBox(numero);
     banque = 1;
     MyFrame* frame = new MyFrame(banque);
     frame->Show(true);
     Close(true);
 }
 void MyFrame0::OnChoix2(wxCommandEvent& event) {
-    // wxMessageBox(numero);
     banque = 2;
     MyFrame* frame = new MyFrame(banque);
     frame->Show(true);
     Close(true);
 }
 void MyFrame0::OnChoix3(wxCommandEvent& event) {
-    // wxMessageBox(numero);
     banque = 3;
     MyFrame* frame = new MyFrame(banque);
     frame->Show(true);
     Close(true);
 }
 void MyFrame0::OnChoix4(wxCommandEvent& event) {
-    // wxMessageBox(numero);
     banque = 4;
     MyFrame* frame = new MyFrame(banque);
     frame->Show(true);
@@ -153,31 +119,10 @@ MyFrame::MyFrame(int banque)
             break;
     }*/
     
-    wxMenu* menuFile = new wxMenu;
-    menuFile->Append(static_cast<int>(My_class_client::ID_Add_Customer), "&Add_Customer...\tCtrl-A",
-        "Add a customer");
-    menuFile->AppendSeparator();
-
-
-
-   /* menuFile->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
-        "Add an Account");
-    menuFile->AppendSeparator();
-
-    menuFile->Append(static_cast<int>(My_class_operation::ID_Add_Operation), "&Add_Operation...\tCtrl-A",
-        "Add an Operation");
-    menuFile->AppendSeparator();*/
-    /*
-    menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
-        "Save customers");
-    menuFile->AppendSeparator();*/
-    menuFile->Append(wxID_EXIT);
-
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
     wxMenuBar* menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&Customers Management");
     menuBar->Append(menuHelp, "&Help");
 
     SetMenuBar(menuBar);
@@ -185,29 +130,23 @@ MyFrame::MyFrame(int banque)
     CreateStatusBar();
     SetStatusText("Welcome to Bank agency!");
 
-    Bind(wxEVT_MENU, &MyFrame::OnAdd_Customer, this, static_cast<int>(My_class_client::ID_Add_Customer)); // My_class_client::ID_Add_Customer
-
-   /* Bind(wxEVT_MENU, &MyFrame::OnAdd_Account, this, static_cast<int>(My_class_compte::ID_Add_Account));
-
-    Bind(wxEVT_MENU, &MyFrame::OnAdd_Operation, this, static_cast<int>(My_class_operation::ID_Add_Operation));*/
-
     Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);/*
     Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MyFrame::OnSaveCustomers, this, static_cast<int>(My_class_client::ID_Customers_save));*/
 
     wxPanel* panel = new wxPanel(this);
-    wxButton* button = new wxButton(panel, 5, "Connexion", wxPoint(340, 220), wxSize(130, 35));
+    wxButton* button = new wxButton(panel, 5, "Log in", wxPoint(340, 220), wxSize(130, 35));
     button->Bind(wxEVT_BUTTON, &MyFrame::OnConnexion, this);
     design_petit_bouton(button);
 
-    wxButton* button2 = new wxButton(panel, 6, "Vous inscrire", wxPoint(340, 70), wxSize(140, 35));
+    wxButton* button2 = new wxButton(panel, 6, "Sign up", wxPoint(340, 70), wxSize(140, 35));
     button2->Bind(wxEVT_BUTTON, &MyFrame::OnAdd_Customer, this);
     design_petit_bouton(button2);
 
    // wxButton* button2 = new wxButton(panel, 5, "Inscription", wxPoint(340, 140), wxSize(100, 35));
 
 
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Bienvenue dans la Banque n°" + std::to_string(this->banque) + " ! ", wxPoint(250, 10));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Welcome to the Bank No." + std::to_string(this->banque) + " ! ", wxPoint(250, 10));
     wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Client Numbers : ", wxPoint(275, 180), wxSize(180, -1));
 
     text->SetForegroundColour(wxColour(255, 255, 255));
@@ -217,16 +156,16 @@ MyFrame::MyFrame(int banque)
     design_texte(Account);
 
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(405, 180), wxSize(120, -1));
-    wxButton* retour = new wxButton(panel, 7, "Retour", wxPoint(350, 300), wxSize(110, 35));
-    retour->Bind(wxEVT_BUTTON, &MyFrame::Retour, this);
-    design_petit_bouton(retour);
+    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(350, 300), wxSize(110, 35));
+    Back->Bind(wxEVT_BUTTON, &MyFrame::Back, this);
+    design_petit_bouton(Back);
 
-    wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, " OU ", wxPoint(390, 130));
+    wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, " OR ", wxPoint(390, 130));
     design_grandtitre(text2);
 
 }
 
-void MyFrame::Retour(wxCommandEvent& event) {
+void MyFrame::Back(wxCommandEvent& event) {
     MyFrame0* frame = new MyFrame0();
     // SetTopWindow(frame);
     frame->Show(true);
@@ -258,7 +197,7 @@ void MyFrame::OnConnexion(wxCommandEvent& event) {
         else {
             
 
-            wxMessageBox("Ce numéro n'existe pas dans nos données");
+            wxMessageBox("This number does not exist in our data");
             numero = " ";
 
             //auto Lombre_compte = std::to_string(nbr);
@@ -271,28 +210,14 @@ void MyFrame::OnConnexion(wxCommandEvent& event) {
 MyFrame2::MyFrame2(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
-    this->nombre = nbr;
+
     SetBackgroundColour(wxColour(32, 32, 32));
-    wxMenu* menuFile2 = new wxMenu;
-
-    menuFile2->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
-        "Add an Account");
-    menuFile2->AppendSeparator();
-
-    /*menuFile2->Append(static_cast<int>(My_class_operation::ID_Add_Operation), "&Add_Operation...\tCtrl-A",
-        "Add an Operation");
-    menuFile2->AppendSeparator();*/
-    /*
-    menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
-        "Save customers");
-    menuFile->AppendSeparator();*/
-    menuFile2->Append(wxID_EXIT);
+    this->nombre = nbr;
 
     wxMenu* menuHelp2 = new wxMenu;
     menuHelp2->Append(wxID_ABOUT);
 
     wxMenuBar* menuBar2 = new wxMenuBar;
-    menuBar2->Append(menuFile2, "&Customers Management");
     menuBar2->Append(menuHelp2, "&Help");
 
     SetMenuBar(menuBar2);
@@ -304,7 +229,7 @@ MyFrame2::MyFrame2(int nbr)
     wxPanel* panel = new wxPanel(this);
     wxButton* button = new wxButton(panel, 10, "VIEW", wxPoint(470, 330), wxSize(100, 35));
     design_petit_bouton(button);
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Vos informations:", wxPoint(10, 20), wxSize(250, 50));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Your information :", wxPoint(10, 20), wxSize(250, 50));
     design_grandtitre(text);
 
 
@@ -315,18 +240,18 @@ MyFrame2::MyFrame2(int nbr)
     button2->Bind(wxEVT_BUTTON, &MyFrame2::OnAdd_Account, this);
     design_petit_bouton(button2);
 
-    wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, " OU ", wxPoint(490, 130));
+    wxStaticText* text2 = new wxStaticText(panel, wxID_ANY, " OR ", wxPoint(490, 130));
     design_grandtitre(text2);
 
 
-    wxButton* button3 = new wxButton(panel, 6, "Virement", wxPoint(470, 180), wxSize(100, 35));
+    wxButton* button3 = new wxButton(panel, 6, "Transfer to", wxPoint(470, 180), wxSize(100, 35));
     button3->Bind(wxEVT_BUTTON, &MyFrame2::OnVirement, this);
     design_petit_bouton(button3);
 
-    wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, " OU ", wxPoint(490, 230));
+    wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, " OR ", wxPoint(490, 230));
     design_grandtitre(text3);
 
-    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Account Numbers : ", wxPoint(400, 282), wxSize(180, -1));
+    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Account Number : ", wxPoint(400, 282), wxSize(180, -1));
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(540, 280), wxSize(120, -1));
     design_texte(Account);
 
@@ -340,16 +265,16 @@ MyFrame2::MyFrame2(int nbr)
 
     Customer clientvalue = get_a_customer(pt_write, nbr);
 
-    wxStaticText* nom = new wxStaticText(panel, -1, "Nom : ", wxPoint(10, 70), wxSize(250, 50));
+    wxStaticText* nom = new wxStaticText(panel, -1, "Name : ", wxPoint(10, 70), wxSize(250, 50));
     wxStaticText* nom_ = new wxStaticText(panel, -1, clientvalue.nom_, wxPoint(30, 100), wxSize(180, 20));
 
     design_titre(nom); design_texte(nom_);
 
-    wxStaticText* prenom = new wxStaticText(panel, -1, "Prénom : ", wxPoint(10, 130), wxSize(180, 20));
+    wxStaticText* prenom = new wxStaticText(panel, -1, "First name : ", wxPoint(10, 130), wxSize(180, 20));
     wxStaticText* prenom_ = new wxStaticText(panel, -1, clientvalue.prenom_, wxPoint(30, 160), wxSize(180, 20));
     design_titre(prenom);design_texte(prenom_);
 
-    wxStaticText* adresse = new wxStaticText(panel, -1, "Adresse : ", wxPoint(10, 190), wxSize(180, 20));
+    wxStaticText* adresse = new wxStaticText(panel, -1, "Address : ", wxPoint(10, 190), wxSize(180, 20));
     wxStaticText* adresse_ = new wxStaticText(panel, -1, clientvalue.adresse_, wxPoint(30, 220), wxSize(180, 20));
     design_titre(adresse); design_texte(adresse_);
 
@@ -357,7 +282,7 @@ MyFrame2::MyFrame2(int nbr)
     wxStaticText* mail_ = new wxStaticText(panel, -1, clientvalue.mail_, wxPoint(30, 280), wxSize(180, 20));
     design_titre(mail); design_texte(mail_);
 
-    wxStaticText* telephone = new wxStaticText(panel, -1, "Telephone : ", wxPoint(10, 310), wxSize(180, 20));
+    wxStaticText* telephone = new wxStaticText(panel, -1, "Phone Number : ", wxPoint(10, 310), wxSize(180, 20));
     wxStaticText* telephone_ = new wxStaticText(panel, -1, clientvalue.telephone_, wxPoint(30, 340), wxSize(180, 20));
     design_titre(telephone); design_texte(telephone_);
 
@@ -366,7 +291,7 @@ MyFrame2::MyFrame2(int nbr)
     string s = ss.str();
     s = s.substr(0, s.length() - 1);
 
-    wxStaticText* compte = new wxStaticText(panel, -1, "Comptes : ", wxPoint(10, 370), wxSize(180, 20));
+    wxStaticText* compte = new wxStaticText(panel, -1, "Account Numbers : ", wxPoint(10, 370), wxSize(180, 20));
     wxStaticText* compte_ = new wxStaticText(panel, -1, s, wxPoint(30, 400), wxSize(180, 100));
     design_titre(compte); design_texte(compte_);
 
@@ -375,14 +300,14 @@ MyFrame2::MyFrame2(int nbr)
     Bind(wxEVT_BUTTON, &MyFrame2::OnConnexion2, this, 10);
 
 
-    wxButton* retour = new wxButton(panel, 7, "Retour", wxPoint(240, 430), wxSize(100, 35));
-    retour->Bind(wxEVT_BUTTON, &MyFrame2::Retour, this);
-    design_petit_bouton(retour);
+    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(240, 430), wxSize(100, 35));
+    Back->Bind(wxEVT_BUTTON, &MyFrame2::Back, this);
+    design_petit_bouton(Back);
 
 
 }
 
-void MyFrame2::Retour(wxCommandEvent& event) {
+void MyFrame2::Back(wxCommandEvent& event) {
     MyFrame* frame = new MyFrame(banque);
     // SetTopWindow(frame);
     frame->Show(true);
@@ -478,10 +403,10 @@ void MyFrame2::OnVirement(wxCommandEvent& event) {
                Operation operation1(num, 
                    "23/12/2022",
                    std::move(std::to_string(compte_montant)),
-                   "Virement ",
+                   "Transfer ",
                    std::move(std::to_string(compte_emetteur)),
                    std::move(std::to_string(compte_recepteur)),
-                    "Argent envoye depuis notre compte");
+                    "Money sent from our account");
 
                srand(time(NULL));
                int num2 = rand();
@@ -489,10 +414,10 @@ void MyFrame2::OnVirement(wxCommandEvent& event) {
                Operation operation2(num2,
                    "23/12/2022",
                    std::move(std::to_string(compte_montant)),
-                   "Virement",
+                   "Transfer",
                    std::move(std::to_string(compte_emetteur)),
                    std::move(std::to_string(compte_recepteur)),
-                   "Argent recu vers notre compte");
+                   "Money received to our account");
 
                pt_write = write_an_operation(pt_write, operation1, get_an_account(pt_write, compte_emetteur));
                pt_write = write_an_operation(pt_write, operation2, get_an_account(pt_write, compte_recepteur));
@@ -510,16 +435,16 @@ void MyFrame2::OnVirement(wxCommandEvent& event) {
                auto Lcompte2 = std::to_string(compte_recepteur);
                auto Lmontant = std::to_string(compte_montant);
 
-               wxMessageBox(wxT("Virement d'un montant de ") + wxT(montant)+wxT(" euros de votre compte n°") + wxT(compte) + wxT(" vers le compte n°") + wxT(compte2) + wxT(" effectué avec succès"));
+               wxMessageBox(wxT("Transfer of an amount of ") + wxT(montant)+wxT(" euros from your account no.") + wxT(compte) + wxT(" to account no.") + wxT(compte2) + wxT(" successfully completed"));
             }
             else {
 
                 if (verif_account_exists(pt_write, compte_emetteur) == 1) {
-                    wxMessageBox("Le numéro de compte recepteur n'existe pas dans nos données,veuillez réessayer en changeant de destinataire");
+                    wxMessageBox("The receiver account number does not exist in our data, please try again by changing the receiver number");
                     numero = " ";
                 }
                 else {
-                    wxMessageBox("Votre numéro de compte emetteur n'existe pas dans nos données,veuillez réessayer avec un autre numéro ou créez un compte");
+                    wxMessageBox("Your transmitter account number does not exist in our data, please try again with another number or create an account");
                     numero = " ";
                 }
             }
@@ -544,28 +469,13 @@ void MyFrame2::OnVirement(wxCommandEvent& event) {
 MyFrame3::MyFrame3(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
+    SetBackgroundColour(wxColour(32, 32, 32));
     this->nombre = nbr;
-    SetBackgroundColour(wxColour(51, 65, 94));
-    wxMenu* menuFile2 = new wxMenu;
-
-    menuFile2->Append(static_cast<int>(My_class_compte::ID_Add_Account), "&Add_Account...\tCtrl-A",
-        "Add an Account");
-    menuFile2->AppendSeparator();
-
-    /*menuFile2->Append(static_cast<int>(My_class_operation::ID_Add_Operation), "&Add_Operation...\tCtrl-A",
-        "Add an Operation");
-    menuFile2->AppendSeparator();*/
-    /*
-    menuFile->Append(static_cast<int>(My_class_client::ID_Customers_save), "&Save all customers...\tCtrl-S",
-        "Save customers");
-    menuFile->AppendSeparator();
-    menuFile2->Append(wxID_EXIT);*/
 
     wxMenu* menuHelp2 = new wxMenu;
     menuHelp2->Append(wxID_ABOUT);
 
     wxMenuBar* menuBar2 = new wxMenuBar;
-    menuBar2->Append(menuFile2, "&Customers Management");
     menuBar2->Append(menuHelp2, "&Help");
 
     SetMenuBar(menuBar2);
@@ -578,7 +488,7 @@ MyFrame3::MyFrame3(int nbr)
 
     wxButton* button = new wxButton(panel, 10, "VIEW", wxPoint(470, 230), wxSize(100, 35));
     design_petit_bouton(button);
-    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Informations de votre compte:", wxPoint(10, 20), wxSize(250, 50));
+    wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Your account information:", wxPoint(10, 20), wxSize(250, 50));
     design_grandtitre(text);
     wxStaticText* text0 = new wxStaticText(panel, wxID_ANY, "Manage your operations :", wxPoint(400, 20), wxSize(250, 50));
     design_grandtitre(text0);
@@ -589,10 +499,10 @@ MyFrame3::MyFrame3(int nbr)
     button3->Bind(wxEVT_BUTTON, &MyFrame3::OnAdd_Operation, this);
     design_petit_bouton(button3);
 
-    wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, " OU ", wxPoint(500, 130));
+    wxStaticText* text3 = new wxStaticText(panel, wxID_ANY, " OR ", wxPoint(500, 130));
     design_grandtitre(text3);
 
-    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Operation Number  : ", wxPoint(395, 182), wxSize(180, -1));
+    wxStaticText* Account = new wxStaticText(panel, wxID_ANY, "Operation Number : ", wxPoint(395, 182), wxSize(180, -1));
     account_numbers = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(540, 180), wxSize(120, -1));
     design_texte(Account);
     Account->SetForegroundColour(wxColour(255, 255, 255));
@@ -607,7 +517,7 @@ MyFrame3::MyFrame3(int nbr)
     Compte Valuecompte = get_an_account(pt_write, nbr);
     //wxStaticText* numero = new wxStaticText(panel, -1, "Numero de compte : ", wxPoint(10, 20), wxSize(250, 20));
     //wxStaticText* numero_ = new wxStaticText(panel, -1, Valuecompte.nombre_, wxPoint(30, 40), wxSize(180, 20));
-    wxStaticText* solde = new wxStaticText(panel, -1, "Solde : ", wxPoint(10, 70), wxSize(250, 50));
+    wxStaticText* solde = new wxStaticText(panel, -1, "Amount : ", wxPoint(10, 70), wxSize(250, 50));
     wxStaticText* solde_ = new wxStaticText(panel, -1, Valuecompte.solde_, wxPoint(30, 100), wxSize(180, 20));
     wxStaticText* type = new wxStaticText(panel, -1, "Type : ", wxPoint(10, 130), wxSize(180, 20));
     wxStaticText* type_ = new wxStaticText(panel, -1, Valuecompte.typeCompte_, wxPoint(30, 160), wxSize(180, 20));
@@ -629,12 +539,12 @@ MyFrame3::MyFrame3(int nbr)
 
     design_titre(ope); design_texte(ope_);
 
-    wxButton* retour = new wxButton(panel, 7, "Retour", wxPoint(240, 330), wxSize(100, 35));
-    retour->Bind(wxEVT_BUTTON, &MyFrame3::Retour, this);
-    design_petit_bouton(retour);
+    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(240, 330), wxSize(100, 35));
+    Back->Bind(wxEVT_BUTTON, &MyFrame3::Back, this);
+    design_petit_bouton(Back);
 }
 
-void MyFrame3::Retour(wxCommandEvent& event) {
+void MyFrame3::Back(wxCommandEvent& event) {
     Close(true);
     MyFrame2* frame2 = new MyFrame2(client);
     // SetTopWindow(frame);
@@ -678,8 +588,8 @@ void MyFrame3::OnConnexion3(wxCommandEvent& event) {
 MyFrame4::MyFrame4(int nbr)
     : wxFrame(nullptr, wxID_ANY, "Bank Agency", wxPoint(30, 30), wxSize(800, 600))
 {
+    SetBackgroundColour(wxColour(32, 32, 32));
     this->nombre = nbr;
-    SetBackgroundColour(wxColour(51, 65, 94));
     wxPanel* panel = new wxPanel(this);
     ptree pt_write;
     std::ifstream file_in("data.json");
@@ -689,9 +599,9 @@ MyFrame4::MyFrame4(int nbr)
     wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Operation Informations :", wxPoint(10, 20), wxSize(250, 50));
     design_grandtitre(text);
 
-    wxButton* retour = new wxButton(panel, 7, "Retour", wxPoint(240, 430), wxSize(100, 35));
-    retour->Bind(wxEVT_BUTTON, &MyFrame4::Retour, this);
-    design_petit_bouton(retour);
+    wxButton* Back = new wxButton(panel, 7, "Back", wxPoint(240, 430), wxSize(100, 35));
+    Back->Bind(wxEVT_BUTTON, &MyFrame4::Back, this);
+    design_petit_bouton(Back);
 
 
 
@@ -700,17 +610,17 @@ MyFrame4::MyFrame4(int nbr)
 
     //wxStaticText* numero = new wxStaticText(panel, -1, "Numero operation : ", wxPoint(10, 20), wxSize(180, 20));
     //wxStaticText* numero_ = new wxStaticText(panel, -1, Valueoperation.nombre_, wxPoint(30, 40), wxSize(180, 20));
-    wxStaticText* date = new wxStaticText(panel, -1, "Date de l'operation : ", wxPoint(10, 70), wxSize(250, 50));
+    wxStaticText* date = new wxStaticText(panel, -1, "Date of the operation : : ", wxPoint(10, 70), wxSize(250, 50));
     wxStaticText* date_ = new wxStaticText(panel, -1, Valueoperation.DateOperation_, wxPoint(30, 100), wxSize(180, 20));
-    wxStaticText* montant = new wxStaticText(panel, -1, "Montant : ", wxPoint(10, 130), wxSize(180, 20));
+    wxStaticText* montant = new wxStaticText(panel, -1, "Amount : ", wxPoint(10, 130), wxSize(180, 20));
     wxStaticText* montant_ = new wxStaticText(panel, -1, Valueoperation.montant_, wxPoint(30, 160), wxSize(180, 20));
     wxStaticText* type = new wxStaticText(panel, -1, "Type : ", wxPoint(10, 190), wxSize(180, 20));
     wxStaticText* type_ = new wxStaticText(panel, -1, Valueoperation.type_, wxPoint(30, 220), wxSize(180, 20));
-    wxStaticText* emetteur = new wxStaticText(panel, -1, "Emetteur : ", wxPoint(10, 250), wxSize(180, 20));
+    wxStaticText* emetteur = new wxStaticText(panel, -1, "Transmitter : ", wxPoint(10, 250), wxSize(180, 20));
     wxStaticText* emetteur_ = new wxStaticText(panel, -1, Valueoperation.emetteur_, wxPoint(30, 280), wxSize(180, 20));
-    wxStaticText* recepteur = new wxStaticText(panel, -1, "Recepteur : ", wxPoint(10, 310), wxSize(180, 20));
+    wxStaticText* recepteur = new wxStaticText(panel, -1, "Receiver : ", wxPoint(10, 310), wxSize(180, 20));
     wxStaticText* recepteur_ = new wxStaticText(panel, -1, Valueoperation.recepteur_, wxPoint(30, 340), wxSize(180, 20));
-    wxStaticText* motif = new wxStaticText(panel, -1, "Motif : ", wxPoint(10, 370), wxSize(180, 20));
+    wxStaticText* motif = new wxStaticText(panel, -1, "Pattern : ", wxPoint(10, 370), wxSize(180, 20));
     wxStaticText* motif_ = new wxStaticText(panel, -1, Valueoperation.motif_, wxPoint(30, 400), wxSize(180, 20));
 
     design_titre(date); design_texte(date_);
@@ -722,7 +632,7 @@ MyFrame4::MyFrame4(int nbr)
 
 }
 
-void MyFrame4::Retour(wxCommandEvent & event) {
+void MyFrame4::Back(wxCommandEvent & event) {
     Close(true);
     MyFrame3* frame3 = new MyFrame3(compte);
     // SetTopWindow(frame);
@@ -768,7 +678,7 @@ void MyFrame::OnAdd_Customer(wxCommandEvent& event)
         srand(time(NULL));
         auto client_numbers = rand(); // Only one at this time
         auto Lombre_compte = std::to_string(client_numbers);
-        wxMessageBox(wxT("Votre numéro de client est le suivant : ") + wxT(ombre_compte));
+        wxMessageBox(wxT("Your customer number is  : ") + wxT(ombre_compte));
 
 
         Customer customer(client_numbers, this->banque,std::move(fisrtname), std::move(surnname), std::move(adress), std::move(mail), std::move(phone), std::move(password), {});
@@ -818,18 +728,14 @@ void MyFrame2::OnAdd_Account(wxCommandEvent& event)
     {
         auto compte_solde = new_account->get_compte_solde();
         auto compte_typecompte = new_account->get_compte_typecompte();
-
-        wxMessageBox(compte_solde + compte_typecompte);
         std::string solde = std::string(compte_solde);
         std::string typeCompte = std::string(compte_typecompte);
-
-        wxMessageBox(solde + typeCompte);
         //long account_numbers; // Only one at this time
 
         srand(time(NULL));
         auto account_numbers = rand(); // Only one at this time
         auto Lombre_compte = std::to_string(account_numbers);
-        wxMessageBox(wxT("Votre numéro de compte est le suivant : ") + wxT(ombre_compte));
+        wxMessageBox(wxT("Your account number is : ") + wxT(ombre_compte));
 
         Compte account(account_numbers, std::move(solde), std::move(typeCompte), {});
         accounts_.push_back(account);
@@ -895,10 +801,10 @@ void MyFrame3::OnAdd_Operation(wxCommandEvent& event)
         std::string Recepteur = std::string(operation_Recepteur);
         std::string Motif = std::string(operation_Motif);
 
-
-        auto operations_numbers = std::stoi(dateOperation); // Only one at this time
+        srand(time(NULL));
+        auto operations_numbers = rand();; // Only one at this time
         auto Lombre_compte = std::to_string(operations_numbers);
-        wxMessageBox(wxT("Votre date d'opération est la suivante : ") + wxT(ombre_compte));
+        wxMessageBox(wxT("Your operation number is as follows : ") + wxT(ombre_compte));
 
 
 
@@ -976,7 +882,7 @@ void MyFrame0::OnInterets(wxCommandEvent& event)
             frame0->Show(true);
             Close(true);
 
-            wxMessageBox("Les intérêts composés ont été appliqués à tous vos comptes avec succès");
+            wxMessageBox("Compound interest has been successfully applied to all your accounts");
 
         }
         catch (std::exception& e)
