@@ -9,7 +9,7 @@ My_new_Customer_dialog::My_new_Customer_dialog(wxWindow* parent, wxWindowID id, 
 	auto text_customer_adress = new wxStaticText(this, -1, "Address : ", wxPoint(10, 80), wxSize(180, 20));
 	auto text_customer_mail = new wxStaticText(this, -1, "Mail : ", wxPoint(10, 110), wxSize(180, 20));
 	auto text_customer_phone = new wxStaticText(this, -1, "Phone Number : ", wxPoint(10, 140), wxSize(180, 20));
-	auto text_customer_password = new wxStaticText(this, -1, "Password : ", wxPoint(10, 170), wxSize(180, 20), wxTE_PASSWORD);
+	auto text_customer_password = new wxStaticText(this, -1, "Password : ", wxPoint(10, 170), wxSize(180, 20));
 
 
 	edit_customer_firstname_ = new wxTextCtrl(this, -1, "", wxPoint(160, 20), wxSize(100, 20));
@@ -17,7 +17,7 @@ My_new_Customer_dialog::My_new_Customer_dialog(wxWindow* parent, wxWindowID id, 
 	edit_customer_adress_ = new wxTextCtrl(this, -1, "", wxPoint(160, 80), wxSize(100, 20));
 	edit_customer_mail_ = new wxTextCtrl(this, -1, "", wxPoint(160, 110), wxSize(100, 20));
 	edit_customer_phone_ = new wxTextCtrl(this, -1, "", wxPoint(160, 140), wxSize(100, 20));
-	edit_customer_password_ = new wxTextCtrl(this, -1, "", wxPoint(160, 170), wxSize(100, 20));
+	edit_customer_password_ = new wxTextCtrl(this, -1, "", wxPoint(160, 170), wxSize(100, 20), wxTE_PASSWORD);
 
 
 	wxButton* b = new wxButton(this, wxID_OK, _("OK"), wxPoint(10, 200), wxDefaultSize);
