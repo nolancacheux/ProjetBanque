@@ -27,11 +27,23 @@
         "Comptes": {
             "19455": {
                 "Nombre": "19455",
-                "Solde": "992",
-                "TypeCompte": "oui",
-                "Operations": ""
+                "Solde": "1047",
+                "TypeCompte": "Courant (Pas d'interet)",
+                "Operations": [
+                    "12511"
+                ]
             },
-            "Operations": ""
+            "Operations": {
+                "12511": {
+                    "Nombre": "12511",
+                    "DateOperation": "23\/12\/2022",
+                    "Montant": "55",
+                    "Type": "Transfer",
+                    "Emetteur": "1001111",
+                    "Recepteur": "19455",
+                    "Motif": "Money received to our account"
+                }
+            }
         }
     }
 }

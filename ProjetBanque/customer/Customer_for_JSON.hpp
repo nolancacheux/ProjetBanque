@@ -16,14 +16,14 @@ using boost::property_tree::write_json;
 
 enum class Account_type
 {
-  Checking,
-  Savings
+	Checking,
+	Savings
 };
 
 struct Account
 {
-  int number;
-  Account_type account_type;
+	int number;
+	Account_type account_type;
 };
 
 ptree get_a_ptree_from_an_operation(const Operation& operation);
@@ -42,6 +42,10 @@ Operation get_an_operation(ptree& pt_write, int nombre);
 
 Compte get_an_account(ptree& pt_write, int nombre);
 
+ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant);
+
+ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees);
+
 Customer get_a_customer(ptree& pt_write, int nombre);
 
 ptree write_an_operation(ptree& pt_write, Operation op, Compte account);
@@ -56,4 +60,8 @@ bool verif_account_exists(ptree& pt_write, int nombre);
 
 bool verif_customer_exists(ptree& pt_write, int nombre, int banque);
 
+bool verif_password_customer(ptree& pt_write, int nombre, std::string password);
+
 std::vector <Operation> get_all_operations(ptree& pt_write);
+
+std::vector <int> get_all_nbcompte(ptree& pt_write);

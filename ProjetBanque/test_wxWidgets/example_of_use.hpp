@@ -13,7 +13,6 @@
 #include "Customer.hpp"
 #include "My_new_Customer_dialog.hpp"
 #include "Customer_for_JSON.hpp"
-#include "../socket/client.hpp"
 
 class MyApp : public wxApp
 {
@@ -33,7 +32,7 @@ private:
     void OnChoix3(wxCommandEvent& event);
     void OnChoix4(wxCommandEvent& event);
 
-
+    void OnInterets(wxCommandEvent& event);
 };
 
 
@@ -46,6 +45,7 @@ public:
     int banque = 0;
     bool connexion = false;
     wxTextCtrl* account_numbers;
+    wxTextCtrl* password_;
 
 private:
     void OnAdd_Customer(wxCommandEvent& event);
@@ -59,7 +59,7 @@ private:
 
 
     void OnConnexion(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 
 };
@@ -83,7 +83,8 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion2(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
+    void OnVirement(wxCommandEvent& event);
 
 
 };
@@ -106,7 +107,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion3(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 
 };
@@ -128,7 +129,7 @@ private:
     std::vector<Operation> operations_;
 
     void OnConnexion4(wxCommandEvent& event);
-    void Retour(wxCommandEvent& event);
+    void Back(wxCommandEvent& event);
 
 };
 
@@ -152,3 +153,48 @@ enum class My_class_operation : int
     ID_Operation_field = 2,
     ID_Operations_save = 3
 };
+
+void design_texte(wxStaticText* text) {
+    text->SetForegroundColour(wxColour(255, 255, 255));
+    wxFont FontText = text->GetFont();
+    FontText.SetPointSize(12);
+    FontText.SetFaceName("Arial");
+    text->SetFont(FontText);
+}
+
+void design_titre(wxStaticText* text) {
+    text->SetForegroundColour(wxColour(255, 255, 255));
+    wxFont FontText = text->GetFont();
+    FontText.SetPointSize(15);
+    FontText.SetFaceName("Arial");
+    text->SetFont(FontText);
+}
+
+void design_grandtitre(wxStaticText* text) {
+    text->SetForegroundColour(wxColour(255, 255, 255));
+    wxFont FontText = text->GetFont();
+    FontText.SetPointSize(18);
+    FontText.SetFaceName("Arial");
+    text->SetFont(FontText);
+}
+
+
+void design_bouton(wxButton* button) {
+
+    button->SetBackgroundColour(wxColour(255, 255, 255));
+    button->SetForegroundColour(*wxBLACK);
+    wxFont font = button->GetFont();
+    font.SetPointSize(15);
+    font.SetFaceName("Arial");
+    button->SetFont(font);
+}
+
+void design_petit_bouton(wxButton* button) {
+
+    button->SetBackgroundColour(wxColour(255, 255, 255));
+    button->SetForegroundColour(*wxBLACK);
+    wxFont font = button->GetFont();
+    font.SetPointSize(11);
+    font.SetFaceName("Arial");
+    button->SetFont(font);
+}

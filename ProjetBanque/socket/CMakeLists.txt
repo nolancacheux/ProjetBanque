@@ -20,6 +20,7 @@ endif (MSVC)
 find_package(Boost 1.80.0 COMPONENTS json serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
+
 set(bank1_src bank1.cpp)
 add_executable(bank1 ${bank1_src} "bank1.cpp")
 target_link_libraries (bank1 LINK_PUBLIC customer ${Boost_LIBRARIES})
