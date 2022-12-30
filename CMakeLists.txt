@@ -9,7 +9,7 @@ project ("ProjetBanque")
 add_subdirectory ("ProjetBanque")
 
 
-
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /W3 /MTd")
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_RELEASE_LIBS ON)

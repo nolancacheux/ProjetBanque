@@ -1,0 +1,282 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "ProjetBanque",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-ProjetBanque-Debug-bce1921be92999939735.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.3"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "ProjetBanque"
+				},
+				{
+					"build" : "ProjetBanque/customer",
+					"jsonFile" : "directory-ProjetBanque.customer-Debug-633f9a25e0b364ec62ea.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.9"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "ProjetBanque/customer",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "ProjetBanque/Boost_JSON",
+					"jsonFile" : "directory-ProjetBanque.Boost_JSON-Debug-ad9e98ef87a542d77be0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "ProjetBanque/Boost_JSON",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "ProjetBanque/socket",
+					"jsonFile" : "directory-ProjetBanque.socket-Debug-ac4214d887dff3a5caa8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "ProjetBanque/socket",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"build" : "ProjetBanque/test_wxWidgets",
+					"jsonFile" : "directory-ProjetBanque.test_wxWidgets-Debug-25e548526060918e6047.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "ProjetBanque/test_wxWidgets",
+					"targetIndexes" : 
+					[
+						7
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ProjetBanque",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "projet",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "customer",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "json",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "json",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "myapp",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						7
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 4,
+					"id" : "bank1::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-bank1-Debug-4c39719e6ca25e44a1ad.json",
+					"name" : "bank1",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "bank2::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-bank2-Debug-f4947656f2be0800d048.json",
+					"name" : "bank2",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "bank3::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-bank3-Debug-a8ca565fb6048ac69ba9.json",
+					"name" : "bank3",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "bank4::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-bank4-Debug-dcfcdba3925a0bf3ebef.json",
+					"name" : "bank4",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "central::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-central-Debug-37f8985b351617cfed1a.json",
+					"name" : "central",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "client::@3ac60d6633116b7fee90",
+					"jsonFile" : "target-client-Debug-9de3fcfc5a1969e988f9.json",
+					"name" : "client",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "customer::@14789ad844a1824b7116",
+					"jsonFile" : "target-customer-Debug-91277d33df4778205d53.json",
+					"name" : "customer",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "example_of_use::@1408e56176076168b21f",
+					"jsonFile" : "target-example_of_use-Debug-689b496e546c5d275559.json",
+					"name" : "example_of_use",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "start::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-start-Debug-5bec29f9f0ca5ec345c7.json",
+					"name" : "start",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "write_read_json::@4ecf9241f79b817926df",
+					"jsonFile" : "target-write_read_json-Debug-e0ac2fad3c6a9a3d5f8d.json",
+					"name" : "write_read_json",
+					"projectIndex" : 3
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/ProjetBanque/out/build/x64-debug",
+		"source" : "C:/ProjetBanque"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

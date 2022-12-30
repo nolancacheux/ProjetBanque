@@ -35,6 +35,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("C:/ProjetBanque/out/build/x64-debug/ProjetBanque/customer/cmake_install.cmake")
+  include("C:/ProjetBanque/out/build/x64-debug/ProjetBanque/Boost_JSON/cmake_install.cmake")
   include("C:/ProjetBanque/out/build/x64-debug/ProjetBanque/socket/cmake_install.cmake")
   include("C:/ProjetBanque/out/build/x64-debug/ProjetBanque/test_wxWidgets/cmake_install.cmake")
 

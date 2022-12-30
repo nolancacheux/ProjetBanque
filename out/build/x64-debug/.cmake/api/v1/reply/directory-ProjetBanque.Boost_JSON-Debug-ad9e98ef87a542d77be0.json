@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "ProjetBanque/Boost_JSON",
+		"source" : "ProjetBanque/Boost_JSON"
+	}
+}

@@ -150,6 +150,7 @@ int main(int argc, char** argv) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
 }
 

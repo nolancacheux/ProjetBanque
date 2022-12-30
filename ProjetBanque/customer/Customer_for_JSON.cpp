@@ -128,6 +128,7 @@ bool verif_operation_exists(ptree& pt_write, int nombre) {
 
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return 0;
 }
@@ -146,6 +147,8 @@ bool verif_account_exists(ptree& pt_write, int nombre) {
     }
     catch (std::exception& e) {
         // Other errors
+         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return 0;
 }
@@ -165,6 +168,7 @@ bool verif_password_customer(ptree& pt_write, int nombre, std::string password) 
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
 
     }
     return 0;
@@ -184,7 +188,7 @@ bool verif_customer_exists(ptree& pt_write, int nombre, int banque) {
     }
     catch (std::exception& e) {
         // Other errors
-
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return 0;
 
@@ -207,6 +211,7 @@ Operation get_an_operation(ptree& pt_write, int nombre) {
     catch (std::exception& e) {
         // Other errors
         std::cout << "Cette opération n'existe pas frérot" << std::endl;
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return retour;
 }
@@ -226,6 +231,7 @@ Compte get_an_account(ptree& pt_write, int nombre) {
     catch (std::exception& e) {
         // Other errors
         std::cout << "Ce compte n'existe pas frérot" << std::endl;
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return retour;
 }
@@ -245,7 +251,7 @@ ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant) {
 
         pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(nombre)).put("Solde", nouveau_montant);;
 
-        auto pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
+        ptree pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
 
         pt_write.get_child("Customers").get_child("Comptes").erase("Operations");
 
@@ -254,6 +260,7 @@ ptree edit_solde_of_an_account(ptree& pt_write, int nombre, int montant) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return pt_write;
 }
@@ -285,14 +292,14 @@ ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees) {
 
             float nouveau_montant = old_montant;
 
-            float multby = 1;
+            float multby = (float)1;
 
             // FUTUR MONTANT : P(1 + r / n) ^ (nt), où P est le solde initial du capital, r est le taux d’intérêt, n est le nombre de fois où les intérêts sont composés par période de temps
 
             if (interet == "Livret A (Interet : 3%)") {
 
                 for (int i = 0; i < annees; i++) {
-                    multby *= (1 + 0.03 / n);
+                    multby *= (float)(1 + 0.03 / n);
                 }
                 nouveau_montant = old_montant * multby;
                 std::cout << "Livret A (Interet : 3%)" << " - Ancien Montant :" << old_montant << " - Nouveau Montant :" << nouveau_montant << std::endl;
@@ -300,7 +307,7 @@ ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees) {
             else {
                 if (interet == "PEA (Interet : 15%)") {
                     for (int i = 0; i < annees; i++) {
-                        multby *= (1 + 0.15 / n);
+                        multby *= (float)(1 + 0.15 / n);
                     }
                     nouveau_montant = old_montant * multby;
                     std::cout << "PEA (Interet : 15%)" << " - Ancien Montant :" << old_montant << " - Nouveau Montant :" << nouveau_montant << std::endl;
@@ -310,7 +317,7 @@ ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees) {
 
             pt_write.get_child("Customers").get_child("Comptes").get_child(std::to_string(*i)).put("Solde", rounded);
 
-            auto pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
+            ptree pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
 
             pt_write.get_child("Customers").get_child("Comptes").erase("Operations");
 
@@ -320,6 +327,7 @@ ptree edit_solde_of_all_account_interets(ptree& pt_write, int annees) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return pt_write;
 }
@@ -340,6 +348,7 @@ Customer get_a_customer(ptree& pt_write, int nombre) {
     catch (std::exception& e) {
         // Other errors
         std::cout << "Ce client n'existe pas frérot" << std::endl;
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return retour;
 
@@ -373,6 +382,7 @@ ptree write_an_operation(ptree& pt_write, Operation op, Compte account) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return pt_write;
 
@@ -385,7 +395,7 @@ ptree write_an_account(ptree& pt_write, Compte compte, Customer customers) {
          }*/
         pt_write.get_child("Customers").get_child("Comptes").put_child(std::to_string(compte.nombre_), get_a_ptree_from_an_account(compte));
 
-        auto pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
+        ptree pt = pt_write.get_child("Customers").get_child("Comptes").get_child("Operations");
 
         pt_write.get_child("Customers").get_child("Comptes").erase("Operations");
 
@@ -403,6 +413,7 @@ ptree write_an_account(ptree& pt_write, Compte compte, Customer customers) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return pt_write;
 
@@ -419,7 +430,7 @@ ptree write_a_customer(ptree& pt_write, Customer customers) {
 
         pt_write.get_child("Customers").put_child(std::to_string(customers.nombre_), get_a_ptree_from_a_customer(customers));
 
-        auto pt = pt_write.get_child("Customers").get_child("Comptes");
+        ptree pt = pt_write.get_child("Customers").get_child("Comptes");
 
         pt_write.get_child("Customers").erase("Comptes");
 
@@ -428,6 +439,7 @@ ptree write_a_customer(ptree& pt_write, Customer customers) {
     }
     catch (std::exception& e) {
         // Other errors
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return pt_write;
 }
@@ -446,6 +458,7 @@ std::vector <Operation> get_all_operations(ptree& pt_write) {
     catch (std::exception& e) {
         // Other errors
         std::cout << "pas d'ope" << std::endl;
+        std::cout << "Error :" << e.what() << std::endl;
     }
     return retour;
 }

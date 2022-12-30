@@ -5,6 +5,7 @@ project(customer)
 set (CMAKE_CXX_STANDARD 17)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_RELEASE_LIBS ON)
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /W3 /MTd")
 
 if(MSVC)
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS)

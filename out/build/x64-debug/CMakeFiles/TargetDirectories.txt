@@ -6,6 +6,9 @@ C:/ProjetBanque/out/build/x64-debug/ProjetBanque/CMakeFiles/rebuild_cache.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/customer/CMakeFiles/customer.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/customer/CMakeFiles/edit_cache.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/customer/CMakeFiles/rebuild_cache.dir
+C:/ProjetBanque/out/build/x64-debug/ProjetBanque/Boost_JSON/CMakeFiles/write_read_json.dir
+C:/ProjetBanque/out/build/x64-debug/ProjetBanque/Boost_JSON/CMakeFiles/edit_cache.dir
+C:/ProjetBanque/out/build/x64-debug/ProjetBanque/Boost_JSON/CMakeFiles/rebuild_cache.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/socket/CMakeFiles/bank1.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/socket/CMakeFiles/bank2.dir
 C:/ProjetBanque/out/build/x64-debug/ProjetBanque/socket/CMakeFiles/bank3.dir
