@@ -1,0 +1,21 @@
+# ninja log v5
+7	4749	6940151341660065	CMakeFiles/start.dir/start.cpp.obj	4edc5222e58ae2f1
+12	6100	6940151355263247	ProjetBanque/customer/CMakeFiles/customer.dir/Customer.cpp.obj	252efe7917ef430b
+18	7182	6940151366168365	ProjetBanque/customer/CMakeFiles/customer.dir/Customer_for_JSON.cpp.obj	b0ed1cf1e7ddcb56
+7183	7468	6940151368379739	ProjetBanque/customer/customer.lib	59fcb0f0ea0353dc
+7468	10366	6940151396543070	start.exe	245dd0f052dda8f6
+57	10383	6940151398151749	ProjetBanque/socket/CMakeFiles/client.dir/client.cpp.obj	5e6c55ad0392dd5e
+10390	10540	6940151399714521	ProjetBanque/socket/client.lib	bd2e784f1af3ac3d
+4756	14706	6940151441196598	ProjetBanque/test_wxWidgets/CMakeFiles/example_of_use.dir/My_new_Customer_dialog.cpp.obj	2bff2153439082fa
+27	15207	6940151446295944	ProjetBanque/socket/CMakeFiles/bank2.dir/bank2.cpp.obj	a9ab1fd564a6539c
+38	15755	6940151451687337	ProjetBanque/socket/CMakeFiles/bank4.dir/bank4.cpp.obj	e6b2169528c9a85b
+23	16441	6940151458512214	ProjetBanque/socket/CMakeFiles/bank1.dir/bank1.cpp.obj	753601f35eb67b3
+45	16490	6940151459009683	ProjetBanque/socket/CMakeFiles/central.dir/central.cpp.obj	983b7d3a963fc638
+34	16617	6940151460176740	ProjetBanque/socket/CMakeFiles/bank3.dir/bank3.cpp.obj	ab50a471ee495d1a
+15208	18269	6940151475519780	ProjetBanque/socket/bank2.exe	d567454cacc5951e
+15756	18356	6940151477413523	ProjetBanque/socket/bank4.exe	96c2932fc0a4249a
+16442	18677	6940151480661707	ProjetBanque/socket/bank1.exe	3f83bb8fdee3b6ad
+16491	18788	6940151481377192	ProjetBanque/socket/central.exe	aa58bf00596bd12f
+16618	18912	6940151483189421	ProjetBanque/socket/bank3.exe	5202acad1466294a
+62	20112	6940151495380704	ProjetBanque/test_wxWidgets/CMakeFiles/example_of_use.dir/example_of_use.cpp.obj	f8448167fcdfcc6b
+20113	22969	6940151523614158	ProjetBanque/test_wxWidgets/example_of_use.exe	6b66e10004fd6e99

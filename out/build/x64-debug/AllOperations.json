@@ -1,0 +1,74 @@
+{
+    "Operations": {
+        "1001": {
+            "Nombre": "1001",
+            "DateOperation": "2019-01-01",
+            "Montant": "1000",
+            "Type": "Versement",
+            "Emetteur": "123456789",
+            "Recepteur": "123456789",
+            "Motif": "mami virement",
+            "Banque": "1"
+        },
+        "1002": {
+            "Nombre": "1002",
+            "DateOperation": "2019-01-01",
+            "Montant": "1000",
+            "Type": "Versement",
+            "Emetteur": "123456789",
+            "Recepteur": "123456789",
+            "Motif": "mami virement",
+            "Banque": "1"
+        },
+        "99999": {
+            "Nombre": "99999",
+            "DateOperation": "20AAA19-01-01",
+            "Montant": "1000",
+            "Type": "AAAAAAA",
+            "Emetteur": "1234AAAAAA56789",
+            "Recepteur": "1234567AAA89",
+            "Motif": "mami vAAAAAirement",
+            "Banque": "1"
+        },
+        "31321": {
+            "Nombre": "31321",
+            "DateOperation": "23\/12\/2022",
+            "Montant": "333",
+            "Type": "Virement",
+            "Emetteur": "333333",
+            "Recepteur": "4010",
+            "Motif": "Argent recu vers notre compte",
+            "Banque": "1"
+        },
+        "12511": {
+            "Nombre": "12511",
+            "DateOperation": "23\/12\/2022",
+            "Montant": "55",
+            "Type": "Transfer ",
+            "Emetteur": "1001111",
+            "Recepteur": "19455",
+            "Motif": "Money sent from our account",
+            "Banque": "1"
+        },
+        "18144": {
+            "Nombre": "18144",
+            "DateOperation": "AZEE",
+            "Montant": "EZEZEZ",
+            "Type": "ZEEZZ",
+            "Emetteur": "EZEZ",
+            "Recepteur": "EZEZZE",
+            "Motif": "EZEZEZ",
+            "Banque": "1"
+        },
+        "12511": {
+            "Nombre": "12511",
+            "DateOperation": "23\/12\/2022",
+            "Montant": "55",
+            "Type": "Transfer",
+            "Emetteur": "1001111",
+            "Recepteur": "19455",
+            "Motif": "Money received to our account",
+            "Banque": "3"
+        }
+    }
+}

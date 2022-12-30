@@ -128,7 +128,6 @@ private:
     std::vector<Compte> accounts_;
     std::vector<Operation> operations_;
 
-    void OnConnexion4(wxCommandEvent& event);
     void Back(wxCommandEvent& event);
 
 };
