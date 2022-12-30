@@ -185,6 +185,7 @@ string DataDeserialize(string data) {
             return "0";
         }
     }   
+    return "0";
 }
 
 

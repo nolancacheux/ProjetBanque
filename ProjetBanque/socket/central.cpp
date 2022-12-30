@@ -138,11 +138,11 @@ string get_all_operation() {
     int banq;
 
     boost::split(result, data, boost::is_any_of("$"));
-    for (size_t i = 0; i < result.size(); i++)
+    for (int i = 0; i < result.size(); i++)
     {
         banq = i + 1;
         boost::split(resu, result[i], boost::is_any_of("="));
-        for (size_t i = 0; i < resu[i].size(); i++)
+        for (int i = 0; i < resu[i].size(); i++)
         {
             //cout << resu[i];
             boost::split(res, resu[i], boost::is_any_of("|"));

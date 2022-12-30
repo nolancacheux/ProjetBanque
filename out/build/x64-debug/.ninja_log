@@ -22,3 +22,13 @@
 86	8197	6941081436136199	ProjetBanque/test_wxWidgets/CMakeFiles/example_of_use.dir/example_of_use.cpp.obj	f8448167fcdfcc6b
 53	7199	6941082401132257	ProjetBanque/test_wxWidgets/CMakeFiles/example_of_use.dir/example_of_use.cpp.obj	f8448167fcdfcc6b
 7199	8548	6941082413120170	ProjetBanque/test_wxWidgets/example_of_use.exe	6b66e10004fd6e99
+46	8902	6941087432163191	ProjetBanque/socket/CMakeFiles/bank3.dir/bank3.cpp.obj	ab50a471ee495d1a
+26	8943	6941087432557098	ProjetBanque/socket/CMakeFiles/bank1.dir/bank1.cpp.obj	753601f35eb67b3
+31	8964	6941087432659017	ProjetBanque/socket/CMakeFiles/bank2.dir/bank2.cpp.obj	a9ab1fd564a6539c
+53	9074	6941087433717623	ProjetBanque/socket/CMakeFiles/bank4.dir/bank4.cpp.obj	e6b2169528c9a85b
+60	9286	6941087436008013	ProjetBanque/socket/CMakeFiles/central.dir/central.cpp.obj	983b7d3a963fc638
+9074	9804	6941087440174029	ProjetBanque/socket/bank4.exe	96c2932fc0a4249a
+8965	9804	6941087439773099	ProjetBanque/socket/bank2.exe	d567454cacc5951e
+8905	9805	6941087439798527	ProjetBanque/socket/bank3.exe	5202acad1466294a
+8943	9807	6941087439996264	ProjetBanque/socket/bank1.exe	3f83bb8fdee3b6ad
+9287	9932	6941087442192044	ProjetBanque/socket/central.exe	aa58bf00596bd12f
