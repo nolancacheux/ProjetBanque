@@ -177,7 +177,7 @@ string DataDeserialize(string data) {
     if (result[1] == "getope") {
         try
         {
-            int Number = stoi(result[2]);
+            int Number = stoi(result[2]); 
             return returnOperation(Number);
         }
         catch (const std::exception&)
