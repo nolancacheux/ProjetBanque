@@ -119,7 +119,7 @@ public:
     wxString numero = " ";
     int nombre = 0;
     bool connexion4 = false;
-    wxTextCtrl* account_numbers;
+    wxTextCtrl* account_numbers{};
 
 private:
 

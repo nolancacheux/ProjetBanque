@@ -32,7 +32,7 @@ string read_(tcp::socket& socket)
 void send_(tcp::socket& socket, const string& message)
 {
     const string msg = message + "\n";
-    boost::asio::write(socket, boost::asio::buffer(message));
+    boost::asio::write(socket, boost::asio::buffer(message)); 
 }
 
 
@@ -252,7 +252,7 @@ string DataDeserialize(string data) {
     }
 
 
-    int port;
+    int port=0;
 
     int BankNumber = stoi(result[1]);
 

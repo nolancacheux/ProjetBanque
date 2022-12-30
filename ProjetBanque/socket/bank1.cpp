@@ -19,7 +19,7 @@ using std::string;
 
 
 
-string oui;
+string oui; 
 
 
 string read_(tcp::socket& socket)

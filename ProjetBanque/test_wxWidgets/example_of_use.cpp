@@ -8,9 +8,6 @@ using namespace std;
 
 wxIMPLEMENT_APP(MyApp);
 
-
-
-
 #include <boost/asio.hpp>
 using namespace boost::asio;
 using ip::tcp;
