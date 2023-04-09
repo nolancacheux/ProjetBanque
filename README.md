@@ -1,26 +1,33 @@
 
-## Projet NEMM Bank 
-By
-**N**olan Cacheux
-**E**liott Peres
-**M**ilo Montuori
-**M**atthieu Host
+# Projet NEMM Bank 
 
-  
----
+## Auteurs
+- **N**olan Cacheux
+- **E**liott Peres
+- **M**ilo Montuori
+- **M**atthieu Host
 
+<img src="accueil.JPG" alt="Explication"/>
+<img src="accueil2.JPG" alt="accueil2">
+<img src="accueil3.JPG" alt="accueil3"/>
+<img src="accueil4.JPG" alt="accueil4"/>
+
+
+## Dossier `out`
 
 **Le dossier `out` est important !**
 
-Il ne possède pas les exécutables et ses dépendances, mais les fichiers JSON "de base" permettant l'utilisation de la banque.
+Il ne contient pas les exécutables et leurs dépendances, mais les fichiers JSON "de base" nécessaires pour utiliser la banque.
 
-Dans ces derniers se trouvent les informations des clients (qui pourront être ajouté graphiquement) mais pour une utilisation simplifiée, la présence de client, de compte et d'opération est nécessaire (i.e : le JSON nommé `data.json` correspond à la Banque n°1 et possède le plus d'information pour permettre les tests.)
+Ces fichiers incluent les informations des clients (qui peuvent être ajoutés graphiquement). Pour une utilisation simplifiée, il est nécessaire d'avoir des clients, des comptes et des opérations (par exemple, le fichier JSON nommé `data.json` correspond à la Banque n°1 et contient le plus d'informations pour permettre les tests).
 
+## Lancement du projet
 
+Pour lancer le projet, exécutez le fichier `start.cpp` à la racine du projet. Ainsi, tous les exécutables nécessaires pour le bon fonctionnement seront créés, selon les fichiers CMake.
 
-# Le lancer
-Pour lancer le projet, il suffit de lancer le start.cpp à la racine du projet. De ce fait, et d'après les fichiers CMake, tous les exécutables nécessaires seront créer pour le bon fonctionnement.
+## Fonctionnalités actuelles
 
-  
-# Actuellement
-Tout fonctionne avec différentes banques, la récupération des opérations toutes les 10 secs, l'utilisation de thread pour gérer la banque centrale, les virements sont égalements fonctionnels (en interne et entre 2 banques)...
+- Gestion de plusieurs banques
+- Récupération des opérations toutes les 10 secondes
+- Utilisation de threads pour gérer la banque centrale
+- Virements fonctionnels (en interne et entre deux banques)

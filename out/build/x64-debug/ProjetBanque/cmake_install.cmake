@@ -1,5 +1,8 @@
 # Install script for directory: C:/ProjetBanque/ProjetBanque
 
+
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /W3 /MDd")
+
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX "C:/ProjetBanque/out/install/x64-debug")
